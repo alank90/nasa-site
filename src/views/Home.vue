@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/nasa.png">
-    <HelloWorld msg="Welcome to the NASA App"/>
+    <img alt="Vue logo" src="../assets/jupiter1.gif">
+    <HelloWorld msg="A Look At The Planets App"/>
   </div>
 </template>
 
