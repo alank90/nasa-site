@@ -1,3 +1,4 @@
+// ======== /src/main.js - Main App Entry Point - ==================== //
 import Vue from "vue";
 import BootstrapVue from "bootstrap-vue";
 

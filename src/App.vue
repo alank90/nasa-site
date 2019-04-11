@@ -6,16 +6,7 @@
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>
     </div>
-    <b-container class="bv-example-row" fluid>
-      <b-row align-h="between">
-        <b-col cols="auto">
-          <h2>Nasa Links</h2>
-        </b-col>
-        <b-col cols="9">
-          <router-view/>
-        </b-col>
-      </b-row>
-    </b-container>
+    <router-view/>
   </div>
 </template>
 

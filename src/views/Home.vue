@@ -1,17 +1,16 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/jupiter1.gif">
-    <SideBarLinks msg="A Look At The Planets App"/>
-
-    <p>
-      For a guide and recipes on how to configure / customize this project,
-      <br>check out the
-      <a
-        href="https://cli.vuejs.org"
-        target="_blank"
-        rel="noopener"
-      >vue-cli documentation</a>.
-    </p>
+    <h1>{{ AppDescription }}</h1>
+    <b-container class="bv-example-row" fluid>
+      <b-row align-h="between">
+        <b-col cols="3">
+          <SideBarLinks/>
+        </b-col>
+        <b-col cols="9">
+          <b-img src="../assets/jupiter1.gif" fluid alt="Planet logo"></b-img>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -23,6 +22,11 @@ export default {
   name: "home",
   components: {
     SideBarLinks // components Home.vue use. This equals SideBarLinks: SideBarLinks
+  },
+  data() {
+    return {
+      AppDescription: "Welcome To The Planets App"
+    };
   }
 };
 </script>
