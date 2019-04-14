@@ -1,12 +1,13 @@
 <template>
-  <b-img :src="JupiterGif" fluid alt="Planet logo"></b-img>
+  <b-img :src="MainDisplayPicture" fluid alt="Planet logo"></b-img>
 </template>
 
 <script>
 export default {
+  name: "MainDisplay",
   data() {
     return {
-      JupiterGif: require("../assets/jupiter1.gif")
+      MainDisplayPicture: require("../assets/jupiter1.gif")
     };
   }
 };

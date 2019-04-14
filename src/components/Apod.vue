@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  name: "Apod",
+  name: "apod",
   data() {
     return {
-      url: "../assets/neptune.jpg"
+      url: require("../assets/Neptune.jpg")
     };
   }
 };

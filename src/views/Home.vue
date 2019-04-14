@@ -18,12 +18,14 @@
 // @ is an alias to /src
 import SideBarLinks from "@/components/SideBarLinks.vue";
 import MainDisplay from "@/components/MainDisplay.vue";
+import Apod from "@/components/Apod.vue";
 
 export default {
   name: "home",
   components: {
     SideBarLinks, // components Home.vue use. This equals SideBarLinks: SideBarLinks
-    MainDisplay
+    MainDisplay,
+    Apod
   },
   data() {
     return {
