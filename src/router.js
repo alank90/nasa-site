@@ -15,7 +15,7 @@ export default new Router({
       name: "home",
       component: Home
     },
-    {
+    /* {
       path: "/apod",
       name: "apod",
       beforeEnter: (to, from, next) => {
@@ -23,7 +23,7 @@ export default new Router({
         next();
       },
       component:Apod
-    },
+    }, */
     {
       path: "/about",
       name: "about",

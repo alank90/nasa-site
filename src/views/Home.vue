@@ -7,7 +7,7 @@
           <SideBarLinks/>
         </b-col>
         <b-col cols="9">
-          <MainDisplay/>
+          <component :is="currentView" v-on:changeView="currentView=$event"></component>
         </b-col>
       </b-row>
     </b-container>
@@ -17,19 +17,20 @@
 <script>
 // @ is an alias to /src
 import SideBarLinks from "@/components/SideBarLinks.vue";
-import MainDisplay from "@/components/MainDisplay.vue";
+import MainView from "@/components/MainView.vue";
 import Apod from "@/components/Apod.vue";
 
 export default {
   name: "home",
   components: {
     SideBarLinks, // components Home.vue use. This equals SideBarLinks: SideBarLinks
-    MainDisplay,
+    MainView,
     Apod
   },
   data() {
     return {
-      AppDescription: "Welcome To The Planets App"
+      AppDescription: "Welcome To The Planets App",
+      currentView: MainView
     };
   }
 };
