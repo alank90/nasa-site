@@ -7,7 +7,7 @@
           <SideBarLinks/>
         </b-col>
         <b-col cols="9">
-          <component :is="currentView" v-on:changeView="currentView=$event"></component>
+          <component :is="currentView"></component>
         </b-col>
       </b-row>
     </b-container>
@@ -26,6 +26,12 @@ export default {
     SideBarLinks, // components Home.vue use. This equals SideBarLinks: SideBarLinks
     MainView,
     Apod
+  },
+  created() {
+    this.$eventBus.$on("send-data", data => {
+      // do something with the data
+      this.currentView = data;
+    });
   },
   data() {
     return {

@@ -2,11 +2,10 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
-import Apod from "./components/Apod.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -15,15 +14,6 @@ export default new Router({
       name: "home",
       component: Home
     },
-    /* {
-      path: "/apod",
-      name: "apod",
-      beforeEnter: (to, from, next) => {
-        console.log("Apod route called.");
-        next();
-      },
-      component:Apod
-    }, */
     {
       path: "/about",
       name: "about",
@@ -31,3 +21,13 @@ export default new Router({
     }
   ]
 });
+
+router.afterEach((to, from) => {
+  if (to.name === "home") {
+    console.log("afterRoute am in");
+    router.app.$eventBus.$emit("send-data", "Home");
+    //$this.$eventBus.$emit("send-data", "home");
+  }
+});
+
+export default router;
