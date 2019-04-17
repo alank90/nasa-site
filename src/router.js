@@ -22,12 +22,4 @@ const router = new Router({
   ]
 });
 
-router.afterEach((to, from) => {
-  if (to.name === "home") {
-    console.log("afterRoute am in");
-    router.app.$eventBus.$emit("send-data", "Home");
-    //$this.$eventBus.$emit("send-data", "home");
-  }
-});
-
 export default router;
