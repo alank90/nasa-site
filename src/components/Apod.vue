@@ -15,3 +15,9 @@ export default {
 };
 </script>
 
+<style>
+  img.img-fluid {
+    max-width: 800px;
+  }
+</style>
+
