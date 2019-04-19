@@ -29,7 +29,7 @@ export default {
   },
   created() {
     this.$eventBus.$on("send-data", data => {
-      // do something with the data
+      // Assign data on eventBus to currentView
       this.currentView = data;
     });
   },
