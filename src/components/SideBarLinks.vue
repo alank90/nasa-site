@@ -49,7 +49,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .list-group-item-action:hover {
-  background-color: #42b983;
+  background-color:#0065b34b;
 }
 .img-fluid {
   max-width: 60%;
