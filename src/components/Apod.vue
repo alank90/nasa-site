@@ -7,14 +7,15 @@
     </div>
 
     <b-jumbotron v-bind:header="title">
-      <b-img :src="imgSrc" fluid alt=""></b-img>
+      <b-img v-if="valid" :src="imgSrc" fluid alt></b-img>
+      <b-embed v-else type="iframe" aspect="16by9" :src="imgSrc" allowfullscreen></b-embed>
+
       <p>{{ explanation }}</p>
     </b-jumbotron>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import api from "../nasaKey.js";
 
 export default {
@@ -24,6 +25,7 @@ export default {
       imgSrc: "",
       title: "",
       explanation: "",
+      valid: false,
       loading: true
     };
   },
@@ -33,15 +35,19 @@ export default {
   methods: {
     getApod() {
       const url = `https://api.nasa.gov/planetary/apod?api_key=${api.key}`;
-
-      axios.get(url).then(response => {
-        const data = response.data;
-        console.log(data);
-        this.title = data.title;
-        this.explanation = data.explanation;
-        this.imgSrc = data.url;
-        this.loading = false;
-      });
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          this.title = data.title;
+          this.explanation = data.explanation;
+          this.imgSrc = data.url;
+          this.loading = false;
+          this.valid = /\.bmp|\.gif|\.png|\.jpg|\.jpeg\.tiff/gim.test(
+            this.imgSrc
+          );
+        })
+        .catch(error => console.log("error is", error));
     }
   }
 };

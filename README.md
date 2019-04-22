@@ -3,6 +3,18 @@
 ## Project setup
 ```
 npm install
+
+          --------------------------------
+Need to add a nasaKey.js file in /src folder with contents 
+//  ---- /src/nasaKey.js -------------- //
+
+const APIkey = {
+  key: "MyAPIKey"
+};
+
+export default APIkey;
+
+Then import file accordingly.
 ```
 
 ### Compiles and hot-reloads for development
