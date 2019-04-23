@@ -7,9 +7,11 @@
     </div>
 
     <b-jumbotron v-bind:header="title">
-      <b-img v-if="validPicture" :src="imgSrc" fluid alt></b-img>
+      <b-img v-if="validPicture" :src="imgSrc" fluid></b-img>
       <b-embed v-else-if="validVideo" type="iframe" aspect="16by9" :src="imgSrc" allowfullscreen></b-embed>
-      <p v-else>Sorry. No Image Available</p>
+      <p v-else-if="noImage">
+        <b-img src="../assets/astronaut_in_space.jpg" fluid></b-img>Sorry. No Image Available
+      </p>
       <p>{{ explanation }}</p>
     </b-jumbotron>
   </div>
@@ -33,6 +35,13 @@ export default {
   mounted() {
     this.getApod();
   },
+  computed: {
+    noImage: function() {
+      if (this.imgSrc === null || this.imgSrc === undefined) {
+        return true;
+      }
+    }
+  },
   methods: {
     getApod() {
       const url = `https://api.nasa.gov/planetary/apod?api_key=${api.key}`;
@@ -48,7 +57,9 @@ export default {
           this.validVideo = /http/gim.test(this.imgSrc);
           this.loading = false;
         })
-        .catch(error => console.log("error is", error));
+        .catch(error => {
+          console.log("error is", error);
+        });
     }
   }
 };
