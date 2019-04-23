@@ -9,7 +9,7 @@
     <b-jumbotron v-bind:header="title">
       <b-img v-if="validPicture" :src="imgSrc" fluid alt></b-img>
       <b-embed v-else-if="validVideo" type="iframe" aspect="16by9" :src="imgSrc" allowfullscreen></b-embed>
-      <b-img v-else src="" alt="No Image Available"></b-img>
+      <p v-else>Sorry. No Image Available</p>
       <p>{{ explanation }}</p>
     </b-jumbotron>
   </div>
@@ -39,7 +39,6 @@ export default {
       fetch(url)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
           this.title = data.title;
           this.explanation = data.explanation;
           this.imgSrc = data.url;

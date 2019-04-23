@@ -14,7 +14,10 @@
         href="#"
       >Back to Front</b-list-group-item>
       <b-list-group-item v-on:click="sendDataApod()" href="#">Astronomy Picture of the Day</b-list-group-item>
-      <b-list-group-item href="#">Link with active state</b-list-group-item>
+      <b-list-group-item v-b-toggle="'collapse-2'" class="m-1">NASA Images Library</b-list-group-item>
+      <b-collapse id="collapse-2">
+        <b-list-group-item v-on:click="getNasaImages()" href="#">Search</b-list-group-item>
+      </b-collapse>
       <b-list-group-item href="#">Action links are easy</b-list-group-item>
       <b-list-group-item href="#foobar" disabled>Disabled link</b-list-group-item>
     </b-list-group>
@@ -41,6 +44,9 @@ export default {
       if (this.displayGroupItem === false) {
         this.displayGroupItem = true;
       }
+    },
+    getNasaImages() {
+      console.log("Clicked to see NASA Pictures.");
     }
   }
 };
@@ -49,7 +55,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .list-group-item-action:hover {
-  background-color:#0065b34b;
+  background-color: #0065b34b;
 }
 .img-fluid {
   max-width: 60%;
