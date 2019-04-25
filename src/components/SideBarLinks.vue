@@ -91,19 +91,32 @@ export default {
     },
     onSubmit(evt) {
       evt.preventDefault();
-      
+      let formValues = this.form;
+      console.log(formValues);
+      // This is .reduce method for objects. If key value is empty
+      // string delete it.
+      Object.entries(formValues).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+        if (value === undefined) {
+          delete formValues.key;
+        }
+      });
+      Object.entries(formValues).forEach(([key, value]) =>
+        console.log(`${key}: ${value}`)
+      ); // "foo: bar", "baz: 42"
       /* const uri = `https://images-api.nasa.gov/search?q=${
         this.form.searchTerm
       }&media_type=${this.form.mediaType}&year_start=${
         this.form.yearStart
-      }&year_end=${this.form.yearEnd}`; */
-      let uri = 'https://images-api.nasa.gov/search?q=';
+      }&year_end=${this.form.yearEnd}`;
+      let uri = "https://images-api.nasa.gov/search?q=";
       for (var parameter in this.form) {
         if (parameter != "") {
           console.log(parameter);
-          uri =+ uri + parameter;
+          uri += parameter;
         }
       }
+
       const url = encodeURI(uri);
       console.log(url);
       fetch(url)
@@ -111,7 +124,7 @@ export default {
         .then(data => {
           const results = data.collection;
           console.log(results);
-        });
+        }); */
     },
     onReset(evt) {
       evt.preventDefault();
