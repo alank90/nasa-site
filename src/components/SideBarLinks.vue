@@ -10,7 +10,7 @@
     <b-list-group>
       <b-list-group-item
         v-show="displayGroupItem"
-        v-on:click="sendDataMainView()"
+        v-on:click="sendDataMainView"
         href="#"
       >Back to Front</b-list-group-item>
       <b-list-group-item v-on:click="sendDataApod()" href="#">Astronomy Picture of the Day</b-list-group-item>
@@ -26,6 +26,28 @@
                 required
                 placeholder="Enter Query"
               ></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Search Media Type" label-for="input-2">
+              <b-form-input
+                id="input-2"
+                v-model="form.mediaType"
+                type="text"
+                placeholder="Enter media-type e.g. image"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-3" label="Search Start Year" label-for="input-3">
+              <b-form-input
+                id="input-3"
+                v-model="form.yearStart"
+                type="text"
+                placeholder="optional"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-4" label="Search End Year" label-for="input-4">
+              <b-form-input id="input-4" v-model="form.yearEnd" type="text" placeholder="optional"></b-form-input>
             </b-form-group>
 
             <b-button v-on:click="onSubmit" variant="primary">Submit</b-button>
@@ -46,7 +68,10 @@ export default {
     return {
       displayGroupItem: false,
       form: {
-        searchTerm: ""
+        searchTerm: "",
+        mediaType: "",
+        yearStart: "",
+        yearEnd: ""
       },
       show: true
     };
@@ -66,7 +91,27 @@ export default {
     },
     onSubmit(evt) {
       evt.preventDefault();
-      console.log(this.form.searchTerm);
+      
+      /* const uri = `https://images-api.nasa.gov/search?q=${
+        this.form.searchTerm
+      }&media_type=${this.form.mediaType}&year_start=${
+        this.form.yearStart
+      }&year_end=${this.form.yearEnd}`; */
+      let uri = 'https://images-api.nasa.gov/search?q=';
+      for (var parameter in this.form) {
+        if (parameter != "") {
+          console.log(parameter);
+          uri =+ uri + parameter;
+        }
+      }
+      const url = encodeURI(uri);
+      console.log(url);
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const results = data.collection;
+          console.log(results);
+        });
     },
     onReset(evt) {
       evt.preventDefault();
