@@ -21,7 +21,7 @@
             <b-form-group id="input-group-1" label="Search NASA Library" label-for="input-1">
               <b-form-input
                 id="input-1"
-                v-model="form.searchTerm"
+                v-model="form.q"
                 type="text"
                 required
                 placeholder="Enter Query"
@@ -31,7 +31,7 @@
             <b-form-group id="input-group-2" label="Search Media Type" label-for="input-2">
               <b-form-input
                 id="input-2"
-                v-model="form.mediaType"
+                v-model="form.media_type"
                 type="text"
                 placeholder="Enter media-type e.g. image"
               ></b-form-input>
@@ -40,14 +40,14 @@
             <b-form-group id="input-group-3" label="Search Start Year" label-for="input-3">
               <b-form-input
                 id="input-3"
-                v-model="form.yearStart"
+                v-model="form.year_start"
                 type="text"
                 placeholder="optional"
               ></b-form-input>
             </b-form-group>
 
             <b-form-group id="input-group-4" label="Search End Year" label-for="input-4">
-              <b-form-input id="input-4" v-model="form.yearEnd" type="text" placeholder="optional"></b-form-input>
+              <b-form-input id="input-4" v-model="form.year_end" type="text" placeholder="optional"></b-form-input>
             </b-form-group>
 
             <b-button v-on:click="onSubmit" variant="primary">Submit</b-button>
@@ -68,10 +68,10 @@ export default {
     return {
       displayGroupItem: false,
       form: {
-        searchTerm: "",
-        mediaType: "",
-        yearStart: "",
-        yearEnd: ""
+        q: "",
+        media_type: "",
+        year_start: "",
+        year_end: ""
       },
       show: true
     };
@@ -92,39 +92,35 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       let formValues = this.form;
-      console.log(formValues);
+      let uri = `https://images-api.nasa.gov/search?`;
       // This is .reduce method for objects. If key value is empty
       // string delete it.
       Object.entries(formValues).forEach(([key, value]) => {
-        console.log(`${key}: ${value}`);
-        if (value === undefined) {
-          delete formValues.key;
+        if (value === "") {
+          delete formValues[key];
+        } else {
+          uri += `${key}=${formValues[key]}&`; // Build the url request
         }
       });
-      Object.entries(formValues).forEach(([key, value]) =>
-        console.log(`${key}: ${value}`)
-      ); // "foo: bar", "baz: 42"
-      /* const uri = `https://images-api.nasa.gov/search?q=${
-        this.form.searchTerm
-      }&media_type=${this.form.mediaType}&year_start=${
-        this.form.yearStart
-      }&year_end=${this.form.yearEnd}`;
-      let uri = "https://images-api.nasa.gov/search?q=";
-      for (var parameter in this.form) {
-        if (parameter != "") {
-          console.log(parameter);
-          uri += parameter;
-        }
-      }
+      uri = uri.substring(0, uri.length - 1); // Delete trailing &
+      const url = encodeURI(uri); // Encode url request for http transport to server
 
-      const url = encodeURI(uri);
-      console.log(url);
+      // Send off API request to NASA
       fetch(url)
         .then(response => response.json())
         .then(data => {
           const results = data.collection;
           console.log(results);
-        }); */
+
+          // Change View to SearchResults
+          this.$eventBus.$emit("send-data", "SearchResults");
+          if (this.displayGroupItem === false) {
+            this.displayGroupItem = true;
+          }
+
+          // Send NASA Search Data results on event Bus to Home.vue
+          this.$eventBus.$emit("nasa-data", results);
+        });
     },
     onReset(evt) {
       evt.preventDefault();

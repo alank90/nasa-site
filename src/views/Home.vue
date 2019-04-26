@@ -19,24 +19,31 @@
 import SideBarLinks from "@/components/SideBarLinks.vue";
 import MainView from "@/components/MainView.vue";
 import Apod from "@/components/Apod.vue";
+import SearchResults from "@/components/SearchResults.vue";
 
 export default {
   name: "home",
   components: {
     SideBarLinks, // components Home.vue use. This equals SideBarLinks: SideBarLinks
     MainView,
-    Apod
+    Apod,
+    SearchResults
   },
   created() {
     this.$eventBus.$on("send-data", data => {
       // Assign data on eventBus to currentView
       this.currentView = data;
     });
+    this.$eventBus.$on("nasa-data", data => {
+      // Assign data on eventBus from SideBarLinks search form to nasaData
+      this.nasaData = data;
+    });
   },
   data() {
     return {
       AppDescription: "Welcome To The Planets App",
-      currentView: MainView
+      currentView: MainView,
+      nasaData: {}
     };
   }
 };
