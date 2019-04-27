@@ -1,21 +1,17 @@
 <template>
   <div class="searchResults" v-cloak>
-    <div v-if="loading">
-      Loading...
-      <!--Loading spinner -->
-      <i class="fas fa-spinner spin-it" aria-hidden="true"></i>
-    </div>
-
     <h3>Search Results</h3>
+
+    <p>{{ propsResults }}</p>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["propsResults"],
   data() {
     return {
-      name: "SearchResults",
-      loading: true
+      name: "SearchResults"
     };
   }
 };

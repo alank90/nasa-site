@@ -7,7 +7,7 @@
           <SideBarLinks/>
         </b-col>
         <b-col cols="9">
-          <component :is="currentView"></component>
+          <component :propsResults="nasaData" :is="currentView"></component>
         </b-col>
       </b-row>
     </b-container>
