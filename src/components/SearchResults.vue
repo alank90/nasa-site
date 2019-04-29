@@ -1,7 +1,7 @@
 <template>
   <div class="searchResults" v-cloak>
     <h3>Search Results</h3>
-    
+
     <!-- Limit output to 20 items -->
     <ul id="search-Results" v-for="(item, index) in propsResults.items.slice(0,20)" :key="index">
       <li>
