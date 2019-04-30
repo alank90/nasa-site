@@ -1,12 +1,13 @@
 <template>
   <div class="home">
     <h2>{{ AppDescription }}</h2>
-    <b-container class="bv-example-row" fluid>
-      <b-row align-h="between">
+    <b-container class="bv-example-row bv-example-row-flex-cols" fluid>
+      <b-row align-h="start">
         <b-col cols="3">
           <SideBarLinks/>
         </b-col>
         <b-col cols="9">
+          <!-- propsResults used on SearchResults component to render serach results -->
           <component :propsResults="nasaData" :is="currentView"></component>
         </b-col>
       </b-row>
@@ -51,7 +52,9 @@ export default {
 
 <style scoped>
 h2 {
+  font-size: 2.5rem;
   margin-bottom: 40px;
+  font-weight: 600;
 }
 </style>
 
