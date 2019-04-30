@@ -1,10 +1,10 @@
 <template>
-  <div class="searchResults" v-cloak>
+  <div class="results" v-cloak>
     <h3>Search Results</h3>
 
     <!-- Limit output to 20 items -->
 
-    <ul class="search-results">
+    <ul class="search-results" v-on:click="imageModal">
       <li v-for="(item, index) in propsResults.items.slice(0,20)" :key="index">
         {{ item.data[0].title}}
         <span>
@@ -22,6 +22,11 @@ export default {
     return {
       name: "SearchResults"
     };
+  },
+  methods: {
+    imageModal: function(event) {
+      console.log(event.target);
+    }
   }
 };
 </script>
