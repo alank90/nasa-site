@@ -2,13 +2,28 @@
   <div class="results" v-cloak>
     <h3>Search Results</h3>
 
+    <modal v-if="showModal" @close="showModal = false">
+      <!--
+      you can use custom content here to overwrite
+      default content
+      -->
+      <h3>default header</h3>
+    </modal>
+
     <!-- Limit output to 20 items -->
 
-    <ul class="search-results" v-on:click="imageModal">
+    <ul class="search-results">
       <li v-for="(item, index) in propsResults.items.slice(0,20)" :key="index">
         {{ item.data[0].title}}
         <span>
-          <b-img thumbnail class="thumbnail" :src="item.links[0].href" alt="Fluid image"></b-img>
+          <b-img
+            thumbnail
+            class="thumbnail"
+            :src="item.links[0].href"
+            alt="Fluid image"
+            id="show-modal"
+            v-on:click="imageModal"
+          ></b-img>
         </span>
       </li>
     </ul>
@@ -16,16 +31,27 @@
 </template>
 
 <script>
+import modal from "@/components/ImageModal.vue";
+
 export default {
+  name: "SearchResults",
   props: ["propsResults"],
   data() {
     return {
-      name: "SearchResults"
+      showModal: false,
+      attribute: ""
     };
+  },
+  components: {
+    modal
   },
   methods: {
     imageModal: function(event) {
       console.log(event.target);
+      this.attribute = event.target.getAttribute("src");
+
+      console.log(this.attribute);
+      this.showModal = true;
     }
   }
 };
