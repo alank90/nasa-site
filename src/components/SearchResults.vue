@@ -8,6 +8,10 @@
       default content
       -->
       <h3>default header</h3>
+
+      <template v-slot:body>
+        <b-img class="modal-image" v-bind:src="attribute"></b-img>
+      </template>
     </modal>
 
     <!-- Limit output to 20 items -->
@@ -64,6 +68,12 @@ h3 {
   margin-bottom: 30px;
 }
 
+.modal-image {
+  max-width: 50vw;
+  max-height: 65vh;
+  margin-top: -30px;
+}
+
 .search-results {
   list-style: none;
   font-size: 18px;
@@ -89,5 +99,6 @@ li:visited {
   vertical-align: text-bottom;
   margin-left: 20px;
 }
+
 </style>
 

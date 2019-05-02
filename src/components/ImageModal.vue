@@ -8,12 +8,12 @@
           </div>
 
           <div class="modal-body">
-            <slot name="body">default body</slot>
+            <slot name="body">NASA Image</slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="$emit('close')">OK</button>
+              <b-button class="modal-default-button" @click="$emit('close')">OK</b-button>
             </slot>
           </div>
         </div>
@@ -52,7 +52,8 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  max-width: 75vw;
+  height: 90vh;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -68,11 +69,22 @@ export default {
 }
 
 .modal-body {
+  max-width: 60vw;
+  max-height: 50vh;
   margin: 20px 0;
+}
+
+.modal-footer {
+  margin-top: 120px;
 }
 
 .modal-default-button {
   float: right;
+}
+
+.btn {
+  background-color: #4285f4;
+  border: 5px solid rgba(121, 173, 226, 0.808);
 }
 
 /*
@@ -84,17 +96,21 @@ export default {
  * these styles.
  */
 
-.modal-enter {
-  opacity: 0;
+.modal-enter-active {
+  animation: bounce-in 0.5s;
 }
-
 .modal-leave-active {
-  opacity: 0;
+  animation: bounce-in 0.5s reverse;
 }
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
