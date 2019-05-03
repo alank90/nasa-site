@@ -1,5 +1,5 @@
 <template>
-  <div class="results" v-cloak>
+  <div class="results overflow-auto" v-cloak>
     <h3>Search Results</h3>
 
     <modal v-if="showModal" @close="showModal = false">
@@ -16,10 +16,17 @@
       </template>
     </modal>
 
+    <!-- ======== Pagination Markup  ============ -->
+    <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"></b-pagination>
+
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+    <!-- ==========End Pagination Markup ======== -->
+
     <!-- Limit output to 20 items -->
 
     <ul class="search-results">
-      <li v-for="(item, index) in propsResults.items.slice(0,20)" :key="index">
+      <li v-for="(item, index) in propsResults.items.slice(0,100)" :key="index">
         {{ item.data[0].title}}
         <span>
           <b-img
@@ -45,15 +52,21 @@ export default {
   data() {
     return {
       showModal: false,
-      attribute: ""
+      attribute: "",
+      perPage: 10,
+      currentPage: 1
     };
+  },
+  computed: {
+    rows() {
+      return this.propsResults.length;
+    }
   },
   components: {
     modal
   },
   methods: {
     imageModal: function(event) {
-      console.log(event.target);
       this.attribute = event.target.getAttribute("src");
 
       console.log(this.attribute);
@@ -99,8 +112,9 @@ li:visited {
   color: #660099;
 }
 
-.thumbnail {
-  max-width: 8%;
+img.thumbnail {
+  max-width: 6vw;
+  max-height: 6vh;
   vertical-align: text-bottom;
   margin-left: 20px;
 }
