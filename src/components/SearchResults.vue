@@ -7,7 +7,9 @@
       you can use custom content here to overwrite
       default content
       -->
-      <h3>default header</h3>
+      <template v-slot:header>
+        <h1>NASA Image</h1>
+      </template>
 
       <template v-slot:body>
         <b-img class="modal-image" v-bind:src="attribute"></b-img>
@@ -62,8 +64,8 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  font-size: 2rem;
+h1 {
+  font-size: 1.3rem;
   text-decoration: underline;
   margin-bottom: 30px;
 }
@@ -72,6 +74,10 @@ h3 {
   max-width: 50vw;
   max-height: 65vh;
   margin-top: -30px;
+}
+
+img#show-modal {
+  cursor: pointer;
 }
 
 .search-results {
@@ -88,7 +94,6 @@ li {
 }
 li:hover {
   text-decoration: underline;
-  cursor: pointer;
 }
 li:visited {
   color: #660099;
@@ -99,6 +104,5 @@ li:visited {
   vertical-align: text-bottom;
   margin-left: 20px;
 }
-
 </style>
 

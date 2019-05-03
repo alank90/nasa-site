@@ -63,9 +63,10 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header h3 {
+.modal-header {
   margin-top: 0;
-  color: #42b983;
+  color: #010e08;
+  height: 10vh;
 }
 
 .modal-body {

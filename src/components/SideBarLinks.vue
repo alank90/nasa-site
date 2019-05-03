@@ -124,8 +124,12 @@ export default {
     },
     onReset(evt) {
       evt.preventDefault();
-      // reset for values
-      this.form.searchTerm = "";
+
+      // reset form values
+      this.form.q = "";
+      this.form.media_type = "";
+      this.form.year_start = "";
+      this.form.year_end = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
