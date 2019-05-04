@@ -16,43 +16,44 @@
       </template>
     </modal>
 
-    <!-- ======== Pagination Markup  ============ -->
-    <div class="overflow-auto">
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="my-list"
-      ></b-pagination>
+    <!-- Limit output to 100 items -->
 
-      <p class="mt-3">Current Page: {{ currentPage }}</p>
-
-      <!-- ==========End Pagination Markup ======== -->
-
-      <!-- Limit output to 100 items -->
-
-      <ul
-        class="search-results"
-        id="my-list"
-        :items="items"
-        :per-page="perPage"
-        :current-page="currentPage"
+    <b-list-group
+      class="search-results"
+      id="my-list"
+      :per-page="perPage"
+      :current-page="currentPage"
+    >
+      <b-list-group-item
+        v-for="(item, index) in propsResults.items.slice(10*(currentPage-1),10*(currentPage))"
+        :key="index"
       >
-        <li v-for="(item, index) in propsResults.items.slice(0,100)" :key="index">
-          {{ item.data[0].title}}
-          <span>
-            <b-img
-              thumbnail
-              class="thumbnail"
-              :src="item.links[0].href"
-              alt="Fluid image"
-              id="show-modal"
-              v-on:click="imageModal"
-            ></b-img>
-          </span>
-        </li>
-      </ul>
-    </div>
+        {{ item.data[0].title}}
+        <span>
+          <b-img
+            thumbnail
+            class="thumbnail"
+            :src="item.links[0].href"
+            alt="Fluid image"
+            id="show-modal"
+            v-on:click="imageModal"
+          ></b-img>
+        </span>
+      </b-list-group-item>
+    </b-list-group>
+
+    <!-- ======== Pagination Markup  ============ -->
+
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-list"
+    ></b-pagination>
+
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+    <!-- ==========End Pagination Markup ======== -->
   </div>
 </template>
 
@@ -66,9 +67,8 @@ export default {
     return {
       showModal: false,
       attribute: "",
-      perPage: 10,
-      currentPage: 1,
-      items: this.$props.propsResults.items
+      perPage: 15,
+      currentPage: 1
     };
   },
   computed: {
@@ -113,16 +113,16 @@ img#show-modal {
   font-weight: 700;
 }
 
-li {
+.list-group-item {
   margin-bottom: 15px;
   line-height: 1.33;
   color: #1a0dab;
   font-family: Arial, Helvetica, sans-serif;
 }
-li:hover {
+.list-group-item:hover {
   text-decoration: underline;
 }
-li:visited {
+.list-group-item:visited {
   color: #660099;
 }
 
