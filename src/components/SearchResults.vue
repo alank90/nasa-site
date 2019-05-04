@@ -17,29 +17,42 @@
     </modal>
 
     <!-- ======== Pagination Markup  ============ -->
-    <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"></b-pagination>
+    <div class="overflow-auto">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-list"
+      ></b-pagination>
 
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
+      <p class="mt-3">Current Page: {{ currentPage }}</p>
 
-    <!-- ==========End Pagination Markup ======== -->
+      <!-- ==========End Pagination Markup ======== -->
 
-    <!-- Limit output to 20 items -->
+      <!-- Limit output to 100 items -->
 
-    <ul class="search-results">
-      <li v-for="(item, index) in propsResults.items.slice(0,100)" :key="index">
-        {{ item.data[0].title}}
-        <span>
-          <b-img
-            thumbnail
-            class="thumbnail"
-            :src="item.links[0].href"
-            alt="Fluid image"
-            id="show-modal"
-            v-on:click="imageModal"
-          ></b-img>
-        </span>
-      </li>
-    </ul>
+      <ul
+        class="search-results"
+        id="my-list"
+        :items="items"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
+        <li v-for="(item, index) in propsResults.items.slice(0,100)" :key="index">
+          {{ item.data[0].title}}
+          <span>
+            <b-img
+              thumbnail
+              class="thumbnail"
+              :src="item.links[0].href"
+              alt="Fluid image"
+              id="show-modal"
+              v-on:click="imageModal"
+            ></b-img>
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -54,12 +67,13 @@ export default {
       showModal: false,
       attribute: "",
       perPage: 10,
-      currentPage: 1
+      currentPage: 1,
+      items: this.$props.propsResults.items
     };
   },
   computed: {
     rows() {
-      return this.propsResults.length;
+      return this.$props.propsResults.items.length;
     }
   },
   components: {
@@ -69,7 +83,7 @@ export default {
     imageModal: function(event) {
       this.attribute = event.target.getAttribute("src");
 
-      console.log(this.attribute);
+      console.log(this.$props.propsResults.items.length);
       this.showModal = true;
     }
   }
