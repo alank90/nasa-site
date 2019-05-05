@@ -16,7 +16,7 @@
       </template>
     </modal>
 
-    <!-- Limit output to 100 items -->
+    <!-- Limit output to 150 items -->
 
     <b-list-group
       class="search-results"
