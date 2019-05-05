@@ -44,4 +44,3 @@ The src prop (and blank-src prop of <b-img-lazy>), out of the box, works only wi
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-### This is some test text
