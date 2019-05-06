@@ -13,18 +13,22 @@
         v-on:click="sendDataMainView"
         href="#"
       >Back to Front</b-list-group-item>
-      <b-list-group-item v-show="displayApod" v-on:click="sendDataApod()" href="#">Astronomy Picture of the Day</b-list-group-item>
+      <b-list-group-item
+        v-show="displayApod"
+        v-on:click="sendDataApod()"
+        href="#"
+      >Astronomy Picture of the Day</b-list-group-item>
       <b-list-group-item v-b-toggle="'collapse-2'" class="m-1">NASA Images Library</b-list-group-item>
       <b-collapse id="collapse-2">
         <b-list-group-item href="#">
           <b-form v-if="show">
-            <b-form-group id="input-group-1" label="Search NASA Library" label-for="input-1">
+            <b-form-group id="input-group-1" label="Enter Query" label-for="input-1">
               <b-form-input
                 id="input-1"
                 v-model="form.q"
                 type="text"
                 required
-                placeholder="Enter Query"
+                placeholder="e.g. apollo 11 landing"
               ></b-form-input>
             </b-form-group>
 
@@ -62,7 +66,7 @@
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators';
+import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   name: "SideBarLinks",
@@ -79,12 +83,20 @@ export default {
       show: true
     };
   },
+  validations: {
+    formResponses: {
+      name: {
+        required,
+        minLength: minLength(2)
+      }
+    }
+  },
   methods: {
     sendDataMainView() {
       this.$eventBus.$emit("send-data", "MainView");
       if (this.displayBackToFront === true) {
         this.displayBackToFront = false;
-        this.displayApod =true;
+        this.displayApod = true;
       }
     },
     sendDataApod() {
@@ -156,7 +168,7 @@ export default {
   max-width: 60%;
 }
 
-.btn-primary  {
+.btn-primary {
   margin-right: 5px;
 }
 </style>
