@@ -79,7 +79,7 @@ img.img-fluid {
 }
 
 .jumbotron {
-  background-color: aliceblue;
+  background-color: #b4d5ef;
 }
 </style>
 

@@ -16,7 +16,7 @@
       </template>
     </modal>
 
-    <!-- Limit output to 150 items -->
+    <!-- Limit output to 100 items -->
 
     <b-list-group
       class="search-results"
@@ -24,7 +24,11 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
+      <b-list-group-item v-if="propsResults.items.length === 0  || propsResults === undefined">
+        <p>No Search Results</p>
+      </b-list-group-item>
       <b-list-group-item
+        v-else
         v-for="(item, index) in propsResults.items.slice(10*(currentPage-1),10*(currentPage))"
         :key="index"
       >
@@ -44,14 +48,14 @@
 
     <!-- ======== Pagination Markup  ============ -->
 
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
+
     <b-pagination
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
       aria-controls="my-list"
     ></b-pagination>
-
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
 
     <!-- ==========End Pagination Markup ======== -->
   </div>
@@ -82,8 +86,6 @@ export default {
   methods: {
     imageModal: function(event) {
       this.attribute = event.target.getAttribute("src");
-
-      console.log(this.$props.propsResults.items.length);
       this.showModal = true;
     }
   }
@@ -103,7 +105,7 @@ h1 {
   margin-top: -30px;
 }
 
-img#show-modal {
+#show-modal {
   cursor: pointer;
 }
 
@@ -114,6 +116,7 @@ img#show-modal {
 }
 
 .list-group-item {
+  border: none;
   margin-bottom: 15px;
   line-height: 1.33;
   color: #1a0dab;
@@ -131,6 +134,10 @@ img.thumbnail {
   max-height: 6vh;
   vertical-align: text-bottom;
   margin-left: 20px;
+}
+
+ul.pagination {
+  justify-content: center;
 }
 </style>
 

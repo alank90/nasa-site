@@ -9,11 +9,11 @@
 
     <b-list-group>
       <b-list-group-item
-        v-show="displayGroupItem"
+        v-show="displayBackToFront"
         v-on:click="sendDataMainView"
         href="#"
       >Back to Front</b-list-group-item>
-      <b-list-group-item v-on:click="sendDataApod()" href="#">Astronomy Picture of the Day</b-list-group-item>
+      <b-list-group-item v-show="displayApod" v-on:click="sendDataApod()" href="#">Astronomy Picture of the Day</b-list-group-item>
       <b-list-group-item v-b-toggle="'collapse-2'" class="m-1">NASA Images Library</b-list-group-item>
       <b-collapse id="collapse-2">
         <b-list-group-item href="#">
@@ -62,11 +62,14 @@
 </template>
 
 <script>
+import { required, minLength } from 'vuelidate/lib/validators';
+
 export default {
   name: "SideBarLinks",
   data() {
     return {
-      displayGroupItem: false,
+      displayBackToFront: false,
+      displayApod: true,
       form: {
         q: "",
         media_type: "",
@@ -79,14 +82,16 @@ export default {
   methods: {
     sendDataMainView() {
       this.$eventBus.$emit("send-data", "MainView");
-      if (this.displayGroupItem === true) {
-        this.displayGroupItem = false;
+      if (this.displayBackToFront === true) {
+        this.displayBackToFront = false;
+        this.displayApod =true;
       }
     },
     sendDataApod() {
       this.$eventBus.$emit("send-data", "Apod");
-      if (this.displayGroupItem === false) {
-        this.displayGroupItem = true;
+      if (this.displayBackToFront === false) {
+        this.displayBackToFront = true;
+        this.displayApod = false;
       }
     },
     onSubmit(evt) {
@@ -114,8 +119,8 @@ export default {
 
           // Change View to SearchResults
           this.$eventBus.$emit("send-data", "SearchResults");
-          if (this.displayGroupItem === false) {
-            this.displayGroupItem = true;
+          if (this.displayBackToFront === false) {
+            this.displayBackToFront = true;
           }
 
           // Send NASA Search Data results on event Bus to Home.vue
@@ -149,5 +154,9 @@ export default {
 }
 .img-fluid {
   max-width: 60%;
+}
+
+.btn-primary  {
+  margin-right: 5px;
 }
 </style>

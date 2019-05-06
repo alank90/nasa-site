@@ -7,7 +7,7 @@
           <SideBarLinks/>
         </b-col>
         <b-col cols="9">
-          <!-- propsResults used on SearchResults component to render serach results -->
+          <!-- propsResults used on SearchResults component to render search results -->
           <component :propsResults="nasaData" :is="currentView"></component>
         </b-col>
       </b-row>
