@@ -28,17 +28,21 @@
               class="error"
               v-if="!$v.formResponses.q.minLength"
             >Name must have at least {{$v.formResponses.q.$params.minLength.min}} letters.</p>
+
+            <!-- Validation for media_type  -->
+
+            <!-- <p
+              class="error"
+              v-if="!$v.formResponses.media_type.checkFormValue"
+            >Test</p>-->
           </div>
 
-          <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
-          <p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
-          <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
           <!-- ================ End Vuelidate  Markup ============== -->
 
           <b-form v-if="show">
             <b-form-group id="input-group-1" label="* Enter Query" label-for="input-1">
               <b-form-input
-                class="full form__input"
+                :class="status($v.formResponses.q)"
                 id="input-1"
                 v-model.lazy="$v.formResponses.q.$model"
                 type="text"
@@ -49,8 +53,9 @@
 
             <b-form-group id="input-group-2" label="Search Media Type" label-for="input-2">
               <b-form-input
+                :class="checkInput($v.formResponses.media_type.$model, $v.formResponses.media_type)"
                 id="input-2"
-                v-model="formResponses.media_type"
+                v-model.lazy="$v.formResponses.media_type.$model"
                 type="text"
                 placeholder="Enter media-type e.g. image"
               ></b-form-input>
@@ -105,6 +110,7 @@ export default {
         year_end: ""
       },
       submitStatus: null,
+      validMediaTypeValues: ["image", "audio"],
       show: true
     };
   },
@@ -113,6 +119,9 @@ export default {
       q: {
         required,
         minLength: minLength(2)
+      },
+      media_type: {
+        required
       }
     }
   },
@@ -187,6 +196,21 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
+    },
+    status(validation) {
+      // Check if $v.formResponses.q.$error || $dirty are true and return objects for class to show or not
+      return {
+        error: validation.$error,
+        dirty: validation.$dirty
+      };
+    },
+    checkInput(value, field) {
+      console.log(!this.validMediaTypeValues.indexOf(value));
+      console.log(field.$dirty);
+      return {
+        error: this.validMediaTypeValues.indexOf(value),
+        dirty: field.$dirty
+      };
     }
   }
 };
@@ -203,11 +227,39 @@ export default {
   max-width: 60%;
 }
 
+input {
+  border: 1px solid silver;
+  border-radius: 4px;
+  background: white;
+  padding: 5px 10px;
+}
+
 .btn-primary {
   margin-right: 5px;
 }
 
-.error {
-  color: red;
+/*  ================== Vuelidate Error Stylings ================ */
+.dirty {
+  border-color: #5a5;
+  background: #efe;
 }
+
+.dirty:focus {
+  outline-color: #8e8;
+}
+
+.error {
+  border-color: red;
+  color: red;
+  background: #fdd;
+}
+p.error {
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.error:focus {
+  outline-color: #f99;
+}
+/* ============== End Vuelidate Error Stylings ============ */
 </style>
