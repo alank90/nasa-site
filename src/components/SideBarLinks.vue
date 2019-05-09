@@ -23,21 +23,24 @@
         <b-list-group-item href="#">
           <!--=============== Vuelidate Markup ========================== -->
           <div v-if="$v.formResponses.q.$error">
-            <p class="error" v-if="!$v.formResponses.q.required">Name is required</p>
+            <p class="error" v-if="!$v.formResponses.q.required">Query is required</p>
             <p
               class="error"
               v-if="!$v.formResponses.q.minLength"
-            >Name must have at least {{$v.formResponses.q.$params.minLength.min}} letters.</p>
+            >Query must have at least {{$v.formResponses.q.$params.minLength.min}} letters.</p>
+          </div>
 
-            <!-- Validation for media_type  -->
+          <!-- Validation for media_type  -->
 
-            <!-- <p
-              class="error"
-              v-if="!$v.formResponses.media_type.checkFormValue"
-            >Test</p>-->
+          <div v-if="$v.formResponses.media_type.$error">
+            <p class="error" v-if="!$v.formResponses.media_type.required">Media Type is required</p>
           </div>
 
           <!-- ================ End Vuelidate  Markup ============== -->
+
+          <!-- ==================================================================== -->
+          <!-- =========== Form Markup ============================================ -->
+          <!-- ==================================================================== -->
 
           <b-form v-if="show">
             <b-form-group id="input-group-1" label="* Enter Query" label-for="input-1">
@@ -53,7 +56,7 @@
 
             <b-form-group id="input-group-2" label="Search Media Type" label-for="input-2">
               <b-form-input
-                :class="checkInput($v.formResponses.media_type.$model, $v.formResponses.media_type)"
+                :class="status($v.formResponses.media_type)"
                 id="input-2"
                 v-model.lazy="$v.formResponses.media_type.$model"
                 type="text"
@@ -86,6 +89,10 @@
             >Submit</b-button>
             <b-button v-on:click="onReset" variant="danger">Reset</b-button>
           </b-form>
+
+          <!-- ==================================================================== -->
+          <!-- =========== End Form Markup ======================================== -->
+          <!-- ==================================================================== -->
         </b-list-group-item>
       </b-collapse>
       <b-list-group-item href="#">Action links are easy</b-list-group-item>
@@ -100,6 +107,7 @@ import { required, minLength } from "vuelidate/lib/validators";
 export default {
   name: "SideBarLinks",
   data() {
+    // ========= Component Data Here ===================== //
     return {
       displayBackToFront: false,
       displayApod: true,
@@ -115,6 +123,7 @@ export default {
     };
   },
   validations: {
+    // ====== Vuelidate Options Object Declaration ========= //
     formResponses: {
       q: {
         required,
@@ -126,6 +135,7 @@ export default {
     }
   },
   methods: {
+    //  ============== Event Bus Logic Here ============================ //
     sendDataMainView() {
       this.$eventBus.$emit("send-data", "MainView");
       if (this.displayBackToFront === true) {
@@ -139,7 +149,7 @@ export default {
         this.displayBackToFront = true;
         this.displayApod = false;
       }
-    },
+    }, // ============== Submit Form QueryLogic Here ============================ //
     onSubmit(evt) {
       evt.preventDefault();
 
@@ -176,13 +186,8 @@ export default {
             // Send NASA Search Data results on event Bus to Home.vue
             this.$eventBus.$emit("nasa-data", results);
           });
-
-        this.submitStatus = "PENDING";
-        setTimeout(() => {
-          this.submitStatus = "OK";
-        }, 500);
       }
-    },
+    }, // ======================= Reset Form Logic Here ============================= //
     onReset(evt) {
       evt.preventDefault();
 
@@ -196,22 +201,16 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
-    },
+    }, // ======================= Vuelidate Logic Here ============================================ //
     status(validation) {
+      console.log(validation.$error);
+      console.log(validation.$dirty);
       // Check if $v.formResponses.q.$error || $dirty are true and return objects for class to show or not
       return {
         error: validation.$error,
         dirty: validation.$dirty
       };
-    },
-    checkInput(value, field) {
-      console.log(!this.validMediaTypeValues.indexOf(value));
-      console.log(field.$dirty);
-      return {
-        error: this.validMediaTypeValues.indexOf(value),
-        dirty: field.$dirty
-      };
-    }
+    } // ==================== End of Vuelidate Logic ====================================== //
   }
 };
 </script>
