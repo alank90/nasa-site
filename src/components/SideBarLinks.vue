@@ -33,7 +33,7 @@
           <!-- Validation for media_type  -->
 
           <div v-if="$v.formResponses.media_type.$error">
-            <p class="error" v-if="!$v.formResponses.media_type.required">Media Type is required</p>
+            <p class="error" v-if="!$v.formResponses.media_type.required">*Media Type is required</p>
           </div>
 
           <!-- ================ End Vuelidate  Markup ============== -->
@@ -44,6 +44,9 @@
 
           <b-form v-if="show">
             <b-form-group id="input-group-1" label="* Enter Query" label-for="input-1">
+              <!-- The :class directive determines the presence of the classes "error"
+              and "dirty". The status() method assigns true or false values to error and 
+              dirty objects determining presenece or absence of these classes.-->
               <b-form-input
                 :class="status($v.formResponses.q)"
                 id="input-1"
@@ -56,6 +59,7 @@
 
             <b-form-group id="input-group-2" label="Search Media Type" label-for="input-2">
               <b-form-input
+                @blur="status($v.formResponses.media_type, 'blur')"
                 :class="status($v.formResponses.media_type)"
                 id="input-2"
                 v-model.lazy="$v.formResponses.media_type.$model"
@@ -104,6 +108,10 @@
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
 
+/* const containsMediaType = event => {
+  return console.log("In containsMediaType");
+}; */
+
 export default {
   name: "SideBarLinks",
   data() {
@@ -118,7 +126,7 @@ export default {
         year_end: ""
       },
       submitStatus: null,
-      validMediaTypeValues: ["image", "audio"],
+      validMediaTypes: ["image", "audio"],
       show: true
     };
   },
@@ -130,7 +138,10 @@ export default {
         minLength: minLength(2)
       },
       media_type: {
-        required
+        required,
+        containsMediaType() {
+          return true;
+        }
       }
     }
   },
@@ -202,9 +213,16 @@ export default {
         this.show = true;
       });
     }, // ======================= Vuelidate Logic Here ============================================ //
-    status(validation) {
+    status(validation, e) {
+      console.log(e);
+      console.log(validation.$model);
       console.log(validation.$error);
       console.log(validation.$dirty);
+
+      if (e === "blur") {
+        console.log("Blur event");
+        console.log(this.validMediaTypes.includes(validation.$model));
+      }
       // Check if $v.formResponses.q.$error || $dirty are true and return objects for class to show or not
       return {
         error: validation.$error,
