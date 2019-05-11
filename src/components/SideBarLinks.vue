@@ -34,6 +34,10 @@
 
           <div v-if="$v.formResponses.media_type.$error">
             <p class="error" v-if="!$v.formResponses.media_type.required">*Media Type is required</p>
+            <p
+              class="error"
+              v-if="!$v.formResponses.media_type.containsMediaType"
+            >*Media Type must be "image" or "audio"</p>
           </div>
 
           <!-- ================ End Vuelidate  Markup ============== -->
@@ -57,7 +61,7 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-2" label="Search Media Type" label-for="input-2">
+            <b-form-group id="input-group-2" label="*Media Type" label-for="input-2">
               <b-form-input
                 @blur="status($v.formResponses.media_type, 'blur')"
                 :class="status($v.formResponses.media_type)"
@@ -139,8 +143,8 @@ export default {
       },
       media_type: {
         required,
-        containsMediaType() {
-          return true;
+        containsMediaType(media_type) {
+          return this.validMediaTypes.includes(media_type);
         }
       }
     }
@@ -216,18 +220,27 @@ export default {
     status(validation, e) {
       console.log(e);
       console.log(validation.$model);
+      console.log(
+        "MediaType" + this.validMediaTypes.includes(validation.$model)
+      );
       console.log(validation.$error);
       console.log(validation.$dirty);
 
-      if (e === "blur") {
+      if (e === "blur" && this.validMediaTypes.includes(validation.$model)) {
         console.log("Blur event");
         console.log(this.validMediaTypes.includes(validation.$model));
+
+        return {
+          error: validation.$error,
+          dirty: validation.$dirty
+        };
+      } else {
+        // Check if $v.formResponses.q.$error || $dirty are true and return objects for class to show or not
+        return {
+          error: validation.$error,
+          dirty: validation.$dirty
+        };
       }
-      // Check if $v.formResponses.q.$error || $dirty are true and return objects for class to show or not
-      return {
-        error: validation.$error,
-        dirty: validation.$dirty
-      };
     } // ==================== End of Vuelidate Logic ====================================== //
   }
 };
