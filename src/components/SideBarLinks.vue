@@ -21,31 +21,9 @@
       <b-list-group-item v-b-toggle="'collapse-2'" class="m-1">NASA Images Library</b-list-group-item>
       <b-collapse id="collapse-2">
         <b-list-group-item href="#">
-          <!--=============== Vuelidate Markup ========================== -->
-          <div v-if="$v.formResponses.q.$error">
-            <p class="error" v-if="!$v.formResponses.q.required">Query is required</p>
-            <p
-              class="error"
-              v-if="!$v.formResponses.q.minLength"
-            >Query must have at least {{$v.formResponses.q.$params.minLength.min}} letters.</p>
-          </div>
-
-          <!-- Validation for media_type  -->
-
-          <div v-if="$v.formResponses.media_type.$error">
-            <p class="error" v-if="!$v.formResponses.media_type.required">*Media Type is required</p>
-            <p
-              class="error"
-              v-if="!$v.formResponses.media_type.containsMediaType"
-            >*Media Type must be "image" or "audio"</p>
-          </div>
-
-          <!-- ================ End Vuelidate  Markup ============== -->
-
           <!-- ==================================================================== -->
           <!-- =========== Form Markup ============================================ -->
           <!-- ==================================================================== -->
-
           <b-form v-if="show">
             <b-form-group id="input-group-1" label="* Enter Query" label-for="input-1">
               <!-- The :class directive determines the presence of the classes "error"
@@ -56,9 +34,21 @@
                 id="input-1"
                 v-model.lazy="$v.formResponses.q.$model"
                 type="text"
-                required
                 placeholder="e.g. apollo 11 landing"
               ></b-form-input>
+
+              <!-- Validation for q  -->
+              <span
+                class="checkmark"
+                v-if="!$v.formResponses.q.$error && $v.formResponses.q.$dirty"
+              >&#128504;</span>
+              <div v-if="$v.formResponses.q.$error">
+                <p class="error-message" v-if="!$v.formResponses.q.required">Query is required</p>
+                <p
+                  class="error-message"
+                  v-if="!$v.formResponses.q.minLength"
+                >Query must have at least {{$v.formResponses.q.$params.minLength.min}} letters.</p>
+              </div>
             </b-form-group>
 
             <b-form-group id="input-group-2" label="*Media Type" label-for="input-2">
@@ -70,24 +60,69 @@
                 type="text"
                 placeholder="Enter media-type e.g. image"
               ></b-form-input>
+              <!-- Validation for media_type  -->
+              <span
+                class="checkmark"
+                v-if="!$v.formResponses.media_type.$error && $v.formResponses.media_type.$dirty"
+              >&#128504;</span>
+              <div v-if="$v.formResponses.media_type.$error">
+                <p
+                  class="error-message"
+                  v-if="!$v.formResponses.media_type.required"
+                >*Media Type is required</p>
+                <p
+                  class="error-message"
+                  v-if="!$v.formResponses.media_type.checkMediaType"
+                >*Media Type must be "image" or "audio"</p>
+              </div>
             </b-form-group>
 
             <b-form-group id="input-group-3" label="Search Start Year" label-for="input-3">
               <b-form-input
+                @blur="status($v.formResponses.year_start, 'blur')"
+                :class="status($v.formResponses.year_start)"
                 id="input-3"
-                v-model="formResponses.year_start"
+                v-model.lazy="$v.formResponses.year_start.$model"
                 type="text"
                 placeholder="optional"
               ></b-form-input>
+              <!-- Validation for year_start ----- -->
+              <span
+                class="checkmark"
+                v-if="!$v.formResponses.year_start.$error && $v.formResponses.year_start.$dirty"
+              >&#128504;</span>
+              <div v-if="$v.formResponses.year_start.$error">
+                <p
+                  class="error-message"
+                  v-if="!$v.formResponses.year_start.between"
+                >Year Range is 1959 thru 2019</p>
+              </div>
             </b-form-group>
 
             <b-form-group id="input-group-4" label="Search End Year" label-for="input-4">
               <b-form-input
+                @blur="status($v.formResponses.year_end, 'blur')"
+                :class="status($v.formResponses.year_end)"
                 id="input-4"
-                v-model="formResponses.year_end"
+                v-model.lazy="$v.formResponses.year_end.$model"
                 type="text"
                 placeholder="optional"
               ></b-form-input>
+              <!-- Validation for year_end ----- -->
+              <span
+                class="checkmark"
+                v-if="!$v.formResponses.year_end.$error && $v.formResponses.year_end.$dirty"
+              >&#128504;</span>
+              <div v-if="$v.formResponses.year_end.$error">
+                <p
+                  class="error-message"
+                  v-if="!$v.formResponses.year_end.between"
+                >Year Range is 1959 thru 2019</p>
+                <p
+                  class="error-message"
+                  v-if="!$v.formResponses.year_end.checkYearEnd"
+                >Recheck End Year.</p>
+              </div>
             </b-form-group>
 
             <b-button
@@ -110,11 +145,7 @@
 </template>
 
 <script>
-import { required, minLength } from "vuelidate/lib/validators";
-
-/* const containsMediaType = event => {
-  return console.log("In containsMediaType");
-}; */
+import { required, minLength, between } from "vuelidate/lib/validators";
 
 export default {
   name: "SideBarLinks",
@@ -135,7 +166,9 @@ export default {
     };
   },
   validations: {
-    // ====== Vuelidate Options Object Declaration ========= //
+    // ====== Vuelidate Options Object Declaration ========== //
+    // Note that custom validations are functions that return //
+    // true or false ======================================== //
     formResponses: {
       q: {
         required,
@@ -143,8 +176,17 @@ export default {
       },
       media_type: {
         required,
-        containsMediaType(media_type) {
+        checkMediaType(media_type) {
           return this.validMediaTypes.includes(media_type);
+        }
+      },
+      year_start: {
+        between: between(1959, 2019)
+      },
+      year_end: {
+        between: between(1959, 2019),
+        checkYearEnd() {
+          return this.formResponses.year_end >= this.formResponses.year_start;
         }
       }
     }
@@ -211,6 +253,7 @@ export default {
       this.formResponses.media_type = "";
       this.formResponses.year_start = "";
       this.formResponses.year_end = "";
+      this.$v.$reset();
       // Trick to reset/clear native browser formResponses validation state
       this.show = false;
       this.$nextTick(() => {
@@ -218,29 +261,11 @@ export default {
       });
     }, // ======================= Vuelidate Logic Here ============================================ //
     status(validation, e) {
-      console.log(e);
-      console.log(validation.$model);
-      console.log(
-        "MediaType" + this.validMediaTypes.includes(validation.$model)
-      );
-      console.log(validation.$error);
-      console.log(validation.$dirty);
-
-      if (e === "blur" && this.validMediaTypes.includes(validation.$model)) {
-        console.log("Blur event");
-        console.log(this.validMediaTypes.includes(validation.$model));
-
-        return {
-          error: validation.$error,
-          dirty: validation.$dirty
-        };
-      } else {
-        // Check if $v.formResponses.q.$error || $dirty are true and return objects for class to show or not
-        return {
-          error: validation.$error,
-          dirty: validation.$dirty
-        };
-      }
+      // Check if $v.formResponses.q.$error || $dirty are true and return objects for class to show or not
+      return {
+        error: validation.$error,
+        dirty: validation.$dirty
+      };
     } // ==================== End of Vuelidate Logic ====================================== //
   }
 };
@@ -254,7 +279,12 @@ export default {
   cursor: pointer;
 }
 .img-fluid {
-  max-width: 60%;
+  max-width: 70%;
+}
+
+.form-group {
+  /* creates a reference block for the checkmark absolute position */
+  position: relative;
 }
 
 input {
@@ -262,6 +292,19 @@ input {
   border-radius: 4px;
   background: white;
   padding: 5px 10px;
+}
+
+input.dirty {
+  display: inline-block;
+  max-width: 70%;
+}
+
+span.checkmark {
+  position: absolute;
+  top: 10px;
+  color: green;
+  font-size: 50px;
+  margin-left: 10px;
 }
 
 .btn-primary {
@@ -286,6 +329,12 @@ input {
 p.error {
   font-weight: 600;
   border-radius: 5px;
+}
+.error-message {
+  color: red;
+  font-size: 12px;
+  font-weight: 200;
+  margin-top: 2px;
 }
 
 .error:focus {
