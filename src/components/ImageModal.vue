@@ -25,11 +25,6 @@
 <script>
 export default {
   name: "ImageModal"
-  /* data() {
-    return {
-      
-    };
-  } */
 };
 </script>
 

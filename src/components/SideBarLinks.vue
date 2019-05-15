@@ -122,7 +122,12 @@
               </div>
             </b-form-group>
 
-            <b-button v-on:click="onSubmit" variant="primary" :class=" buttonState ">Submit</b-button>
+            <b-button
+              v-on:click="onSubmit"
+              variant="primary"
+              :class="buttonState"
+              :disabled="$v.formResponses.$invalid"
+            >Submit</b-button>
             <b-button v-on:click="onReset" variant="danger">Reset</b-button>
           </b-form>
 
@@ -178,7 +183,10 @@ export default {
       year_end: {
         between: between(1959, 2019),
         checkYearEnd() {
-          return this.formResponses.year_end >= this.formResponses.year_start;
+          return (
+            this.formResponses.year_end >=
+              this.formResponses.year_start
+          );
         }
       }
     }
@@ -211,8 +219,6 @@ export default {
     }, // ============== Submit Form QueryLogic Here ============================ //
     onSubmit(evt) {
       evt.preventDefault();
-
-      this.$v.$touch();
 
       let uri = `https://images-api.nasa.gov/search?`;
       // This is .reduce method for objects. If key value is empty

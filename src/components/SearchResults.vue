@@ -2,6 +2,9 @@
   <div class="results overflow-auto" v-cloak>
     <h3>Search Results</h3>
 
+    <!-- ====== Modal Markup implemented with slots. The slots are tied to the 
+         ImageModal component via named slots e.g. v-slot:header 
+    ============================================-->
     <modal v-if="showModal" @close="showModal = false">
       <!--
       you can use custom content here to overwrite
@@ -15,6 +18,8 @@
         <b-img class="modal-image" v-bind:src="attribute" title="Right click to enlarge"></b-img>
       </template>
     </modal>
+
+    <!-- =============== End ImageModal markup ======================== -->
 
     <!-- Limit output to 100 items -->
 
