@@ -53,7 +53,6 @@
 
             <b-form-group id="input-group-2" label="*Media Type" label-for="input-2">
               <b-form-input
-                @blur="status($v.formResponses.media_type, 'blur')"
                 :class="status($v.formResponses.media_type)"
                 id="input-2"
                 v-model.lazy="$v.formResponses.media_type.$model"
@@ -79,7 +78,6 @@
 
             <b-form-group id="input-group-3" label="Search Start Year" label-for="input-3">
               <b-form-input
-                @blur="status($v.formResponses.year_start, 'blur')"
                 :class="status($v.formResponses.year_start)"
                 id="input-3"
                 v-model.lazy="$v.formResponses.year_start.$model"
@@ -101,7 +99,6 @@
 
             <b-form-group id="input-group-4" label="Search End Year" label-for="input-4">
               <b-form-input
-                @blur="status($v.formResponses.year_end, 'blur')"
                 :class="status($v.formResponses.year_end)"
                 id="input-4"
                 v-model.lazy="$v.formResponses.year_end.$model"
@@ -125,11 +122,7 @@
               </div>
             </b-form-group>
 
-            <b-button
-              v-on:click="onSubmit"
-              variant="primary"
-              :disabled="submitStatus === 'PENDING'"
-            >Submit</b-button>
+            <b-button v-on:click="onSubmit" variant="primary" :class=" buttonState ">Submit</b-button>
             <b-button v-on:click="onReset" variant="danger">Reset</b-button>
           </b-form>
 
@@ -160,7 +153,6 @@ export default {
         year_start: "",
         year_end: ""
       },
-      submitStatus: null,
       validMediaTypes: ["image", "audio"],
       show: true
     };
@@ -191,6 +183,16 @@ export default {
       }
     }
   },
+  computed: {
+    // ====== Toggle Submit button disabled state ============= //
+    buttonState: function() {
+      let theClass = "button-disabled";
+      if (!this.$v.formResponses.$invalid) {
+        theClass = "button-enabled";
+      }
+      return theClass;
+    }
+  },
   methods: {
     //  ============== Event Bus Logic Here ============================ //
     sendDataMainView() {
@@ -211,38 +213,35 @@ export default {
       evt.preventDefault();
 
       this.$v.$touch();
-      if (this.$v.$invalid) {
-        this.submitStatus = "ERROR";
-      } else {
-        let uri = `https://images-api.nasa.gov/search?`;
-        // This is .reduce method for objects. If key value is empty
-        // string delete it.
-        Object.entries(this.formResponses).forEach(([key, value]) => {
-          if (value === "") {
-            delete this.formResponses[key];
-          } else {
-            uri += `${key}=${this.formResponses[key]}&`; // Build the url request
+
+      let uri = `https://images-api.nasa.gov/search?`;
+      // This is .reduce method for objects. If key value is empty
+      // string delete it.
+      Object.entries(this.formResponses).forEach(([key, value]) => {
+        if (value === "") {
+          delete this.formResponses[key];
+        } else {
+          uri += `${key}=${this.formResponses[key]}&`; // Build the url request
+        }
+      });
+      uri = uri.substring(0, uri.length - 1); // Delete trailing &
+      const url = encodeURI(uri); // Encode url request for http transport to server
+
+      // Send off API request to NASA
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const results = data.collection;
+
+          // Change View to SearchResults
+          this.$eventBus.$emit("send-data", "SearchResults");
+          if (this.displayBackToFront === false) {
+            this.displayBackToFront = true;
           }
+
+          // Send NASA Search Data results on event Bus to Home.vue
+          this.$eventBus.$emit("nasa-data", results);
         });
-        uri = uri.substring(0, uri.length - 1); // Delete trailing &
-        const url = encodeURI(uri); // Encode url request for http transport to server
-
-        // Send off API request to NASA
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            const results = data.collection;
-
-            // Change View to SearchResults
-            this.$eventBus.$emit("send-data", "SearchResults");
-            if (this.displayBackToFront === false) {
-              this.displayBackToFront = true;
-            }
-
-            // Send NASA Search Data results on event Bus to Home.vue
-            this.$eventBus.$emit("nasa-data", results);
-          });
-      }
     }, // ======================= Reset Form Logic Here ============================= //
     onReset(evt) {
       evt.preventDefault();
@@ -309,6 +308,13 @@ span.checkmark {
 
 .btn-primary {
   margin-right: 5px;
+}
+
+.button-disabled {
+  cursor: not-allowed;
+}
+.button-enabled {
+  cursor: pointer;
 }
 
 /*  ================== Vuelidate Error Stylings ================ */
