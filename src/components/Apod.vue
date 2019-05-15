@@ -7,10 +7,17 @@
     </div>
 
     <b-jumbotron v-bind:header="title">
-      <b-img v-if="validPicture" :src="imgSrc" fluid></b-img>
-      <b-embed v-else-if="validVideo" type="iframe" aspect="16by9" :src="imgSrc" allowfullscreen></b-embed>
+      <b-img
+        v-if="validPicture"
+        :src="imgSrc"
+        v-b-tooltip.hover
+        title="Right click to enlarge"
+        alt="Astronomical Picture of the Day"
+        fluid-grow
+      ></b-img>
+      <video v-else-if="validVideo" type="iframe" aspect="16by9" :src="imgSrc" allowfullscreen></video>
       <p v-else-if="noImage">
-        <b-img src="../assets/astronaut_in_space.jpg" fluid></b-img>Sorry. No Image Available
+        <b-img src="../assets/astronaut_in_space.jpg" fluid-grow></b-img>Sorry. No Image Available
       </p>
       <p>{{ explanation }}</p>
     </b-jumbotron>
@@ -51,9 +58,11 @@ export default {
           this.title = data.title;
           this.explanation = data.explanation;
           this.imgSrc = data.url;
-          this.validPicure = /\.bmp|\.gif|\.png|\.jpg|\.jpeg\.tiff/gim.test(
+
+          this.validPicture = /\.bmp$|\.gif$|\.png$|\.jpg$|\.jpeg$\.tiff$/gim.test(
             this.imgSrc
           );
+
           this.validVideo = /http/gim.test(this.imgSrc);
           this.loading = false;
         })

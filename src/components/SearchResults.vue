@@ -12,7 +12,7 @@
       </template>
 
       <template v-slot:body>
-        <b-img class="modal-image" v-bind:src="attribute"></b-img>
+        <b-img class="modal-image" v-bind:src="attribute" title="Right click to enlarge"></b-img>
       </template>
     </modal>
 
@@ -117,7 +117,7 @@ h1 {
 
 .list-group-item {
   border: none;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   line-height: 1.33;
   color: #1a0dab;
   font-family: Arial, Helvetica, sans-serif;
@@ -130,8 +130,8 @@ h1 {
 }
 
 img.thumbnail {
-  max-width: 6vw;
-  max-height: 6vh;
+  max-width: 8vw;
+  max-height: 8vh;
   vertical-align: text-bottom;
   margin-left: 20px;
 }

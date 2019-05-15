@@ -232,7 +232,6 @@ export default {
           .then(response => response.json())
           .then(data => {
             const results = data.collection;
-            console.log(results);
 
             // Change View to SearchResults
             this.$eventBus.$emit("send-data", "SearchResults");
@@ -278,6 +277,7 @@ export default {
   background-color: #0065b34b;
   cursor: pointer;
 }
+
 .img-fluid {
   max-width: 70%;
 }
@@ -303,7 +303,7 @@ span.checkmark {
   position: absolute;
   top: 10px;
   color: green;
-  font-size: 50px;
+  font-size: 45px;
   margin-left: 10px;
 }
 
