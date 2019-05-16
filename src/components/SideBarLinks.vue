@@ -183,7 +183,14 @@ export default {
       year_end: {
         between: between(1959, 2019),
         checkYearEnd() {
-          return this.formResponses.year_end >= this.formResponses.year_start;
+          if (this.formResponses.year_end == "") {
+            return true;
+          } else {
+            return (
+              parseInt(this.formResponses.year_end) >=
+              parseInt(this.formResponses.year_start)
+            );
+          }
         }
       }
     }
