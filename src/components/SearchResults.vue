@@ -13,17 +13,16 @@
       <template v-slot:header>
         <b-container class="bv-example-row" fluid>
           <b-row>
-            <b-col class="modal-center">Image From:</b-col>
-            <b-col class="modal-date-created">Date Created:</b-col>
-            <b-col class="modal-keywords">Keywords:</b-col>
-          </b-row>
-          <b-row class="justify-content-md-center">
-            <b-col class="modal-center">{{propsResults.items[resultsIndex].data[0].center}}</b-col>
+            <b-col cols="3" class="modal-center">Image From:</b-col>
+            <b-col cols="1" class="modal-center">{{propsResults.items[resultsIndex].data[0].center}}</b-col>
+            <b-col cols="3" class="modal-date-created">Date Created:</b-col>
             <b-col
+              cols="2"
               class="modal-date-created"
-            >{{ propsResults.items[resultsIndex].data[0].date_created.substring(0,9) }}</b-col>
+            >{{ propsResults.items[resultsIndex].data[0].date_created.substring(0,10) }}</b-col>
+            <b-col class="modal-keywords">Keywords:</b-col>
             <b-col
-              cols="12"
+              cols="3"
               md="auto"
               class="modal-keywords"
               v-for="(item, index) in propsResults.items[resultsIndex].data[0].keywords"
@@ -64,7 +63,7 @@
           <b-img
             thumbnail
             class="thumbnail"
-            :data-index="index"
+            :data-index="index + 10*(currentPage-1)"
             :src="item.links[0].href"
             alt="Fluid image"
             id="show-modal"
@@ -131,25 +130,42 @@ h1 {
   margin-bottom: 30px;
 }
 
+.row {
+  justify-content: flex-start;
+}
+
 .modal-image {
   max-width: 50vw;
   max-height: 65vh;
   margin-top: -30px;
 }
 
-h1.modal-center {
-  font-size: 1.2rem;
-}
-h2.modal-date-created {
-  font-size: 0.9rem;
-}
-h3.modal-keywords {
-  font-size: 0.6rem;
+.modal-footer {
+  margin-top: 0;
 }
 
 .modal-description {
-  font-size: 1.2rem;
-  overflow: auto;
+  font-size: 0.75rem;
+}
+
+.modal-center {
+  font-size: 1rem;
+}
+
+.modal-date-created {
+  font-size: 1rem;
+}
+.modal-keywords.col {
+  font-size: 1rem;
+  font-style: normal;
+}
+.modal-keywords {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.modal-footer {
+  border-top: 0 solid #fff;
 }
 
 #show-modal {
