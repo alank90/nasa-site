@@ -5,24 +5,26 @@
 
 <template>
   <div>
-    <b-img src="../assets/nasa.png" fluid alt="NASA Logo">NASA Links</b-img>
+    <b-img src="../../assets/nasa.png" fluid alt="NASA Logo">NASA Links</b-img>
 
     <b-list-group>
       <b-list-group-item
         v-show="displayBackToFront"
         v-on:click="sendDataMainView"
         href="#"
+        class="mt-3"
       >Back to Front</b-list-group-item>
       <b-list-group-item
         v-show="displayApod"
         v-on:click="sendDataApod()"
         href="#"
+        class="mt-3"
       >Astronomy Picture of the Day</b-list-group-item>
-      <b-list-group-item v-b-toggle="'collapse-2'" class="m-1">NASA Images Library</b-list-group-item>
+      <b-list-group-item v-b-toggle="'collapse-2'" class="mt-2">NASA Images Library</b-list-group-item>
       <b-collapse id="collapse-2">
         <b-list-group-item href="#">
           <!-- ==================================================================== -->
-          <!-- =========== Form Markup ============================================ -->
+          <!-- =========== Form Markup NASA Image Library ========================= -->
           <!-- ==================================================================== -->
           <b-form v-if="show">
             <b-form-group id="input-group-1" label="* Enter Query" label-for="input-1">
@@ -132,21 +134,33 @@
           </b-form>
 
           <!-- ==================================================================== -->
-          <!-- =========== End Form Markup ======================================== -->
+          <!-- =========== End Form Markup NASA Image Library ===================== -->
           <!-- ==================================================================== -->
         </b-list-group-item>
       </b-collapse>
-      <b-list-group-item href="#">Action links are easy</b-list-group-item>
-      <b-list-group-item href="#foobar" disabled>Disabled link</b-list-group-item>
+
+      <!-- ==================================================================== -->
+      <!-- ==============EPIC Markup ========================================== -->
+      <!-- ==================================================================== -->
+
+      <b-list-group-item v-b-toggle="'collapse-3'" class="mt-2">EPIC</b-list-group-item>
+      <b-collapse id="collapse-3">
+        <Epic/>
+      </b-collapse>
+
+      <!-- ====================================================================== -->
+      <b-list-group-item href="#foobar" disabled class="mt-2">Disabled link</b-list-group-item>
     </b-list-group>
   </div>
 </template>
 
 <script>
 import { required, minLength, between } from "vuelidate/lib/validators";
+import Epic from "@/components/SideBar/Epic/Epic.vue";
 
 export default {
   name: "SideBarLinks",
+  components: { Epic },
   data() {
     // ========= Component Data Here ===================== //
     return {

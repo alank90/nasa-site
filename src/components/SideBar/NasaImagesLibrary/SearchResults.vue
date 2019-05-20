@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import modal from "@/components/ImageModal.vue";
+import modal from "@/components/SideBar/NasaImagesLibrary/ImageModal.vue";
 
 export default {
   name: "SearchResults",

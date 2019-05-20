@@ -17,10 +17,10 @@
 
 <script>
 // @ is an alias to /src
-import SideBarLinks from "@/components/SideBarLinks.vue";
+import SideBarLinks from "@/components/SideBar/SideBarLinks.vue";
 import MainView from "@/components/MainView.vue";
-import Apod from "@/components/Apod.vue";
-import SearchResults from "@/components/SearchResults.vue";
+import Apod from "@/components/SideBar/Apod.vue";
+import SearchResults from "@/components/SideBar/NasaImagesLibrary/SearchResults.vue";
 
 export default {
   name: "home",

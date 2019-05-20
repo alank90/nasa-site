@@ -17,7 +17,7 @@
       ></b-img>
       <video v-else-if="validVideo" type="iframe" aspect="16by9" :src="imgSrc" allowfullscreen></video>
       <p v-else-if="noImage">
-        <b-img src="../assets/astronaut_in_space.jpg" fluid-grow></b-img>Sorry. No Image Available
+        <b-img src="../../assets/astronaut_in_space.jpg" fluid-grow></b-img>Sorry. No Image Available
       </p>
       <p>{{ explanation }}</p>
     </b-jumbotron>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import api from "../nasaKey.js";
+import api from "../../nasaKey.js";
 
 export default {
   name: "apod",
