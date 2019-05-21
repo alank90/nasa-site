@@ -93,7 +93,7 @@
 import modal from "@/components/SideBar/NasaImagesLibrary/ImageModal.vue";
 
 export default {
-  name: "SearchResults",
+  name: "nasaImagesSearchResults",
   props: ["propsResults"],
   data() {
     return {
@@ -116,7 +116,6 @@ export default {
     imageModal: function(event) {
       this.attribute = event.target.getAttribute("src");
       this.resultsIndex = event.target.getAttribute("data-index");
-      console.log(this.resultsIndex);
       this.showModal = true;
     }
   }

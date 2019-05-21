@@ -148,6 +148,10 @@
         <Epic/>
       </b-collapse>
 
+      <!-- ==================================================================== -->
+      <!-- ============== End of EPIC Markup ================================== -->
+      <!-- ==================================================================== -->
+
       <!-- ====================================================================== -->
       <b-list-group-item href="#foobar" disabled class="mt-2">Disabled link</b-list-group-item>
     </b-list-group>
@@ -234,7 +238,7 @@ export default {
         this.displayBackToFront = true;
         this.displayApod = false;
       }
-    }, // ============== Submit Form QueryLogic Here ============================ //
+    }, // =========== Submit Form QueryLogic for Nasa Images Library Here =========== //
     onSubmit(evt) {
       evt.preventDefault();
 
@@ -257,8 +261,8 @@ export default {
         .then(data => {
           const results = data.collection;
 
-          // Change View to SearchResults
-          this.$eventBus.$emit("send-data", "SearchResults");
+          // Change View to nasaImagesSearchResults in Home.vue
+          this.$eventBus.$emit("send-data", "nasaImagesSearchResults");
           if (this.displayBackToFront === false) {
             this.displayBackToFront = true;
           }
@@ -332,6 +336,7 @@ span.checkmark {
 
 .btn-primary {
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .button-disabled {

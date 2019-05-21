@@ -2,21 +2,14 @@
   <div>
     <b-form v-if="show">
       <b-form-group id="input-group-1" label="Color Image:" label-for="input-1">
-        <b-form-select id="input-1" v-model="selected" :options="options">
+        <b-form-select id="input-1" v-model="epicForm.selected" :options="epicForm.options">
           <b-card>Hello!</b-card>
         </b-form-select>
       </b-form-group>
 
-      <b-button type="submit" @click.prevent="onSubmit" variant="primary">Submit</b-button>
-      <b-button type="reset" @click.prevent="onReset" variant="danger">Reset</b-button>
+      <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
+      <b-button @click.prevent="onReset" variant="danger">Reset</b-button>
     </b-form>
-
-    <b-card class="mt-3" header="Form Data Result">
-      <div class="mt-3">
-        Selected:
-        <strong>{{ selected }}</strong>
-      </div>
-    </b-card>
   </div>
 </template>
 
@@ -25,25 +18,39 @@ export default {
   data() {
     return {
       epicForm: {
-        test: "Test1"
+        selected: null,
+        options: [
+          { value: null, text: "Select One" },
+          { value: "natural", text: "Natural Color Imagery" },
+          { value: "enhanced", text: " Enhanced Color Imagery" }
+        ]
       },
-      selected: null,
-      options: [
-        { value: null, text: "Select One" },
-        { value: "natural", text: "Natural Color Imagery" },
-        { value: "enhanced", text: " Enhanced Color Imagery" }
-      ],
       show: true
     };
   },
   methods: {
     onSubmit(event) {
-      console.log(JSON.stringify(this.selected));
+      let url = `https://epic.gsfc.nasa.gov/api/${this.epicForm.selected} `;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const results = data;
+          console.log(results);
+
+          // Change View to nasaImagesSearchResults in Home.vue
+          this.$eventBus.$emit("send-data", "epicSearchResults");
+          if (this.displayBackToFront === false) {
+            this.displayBackToFront = true;
+          }
+
+          // Send NASA Search Data results on event Bus to Home.vue
+          this.$eventBus.$emit("nasa-data", results);
+        });
     },
     onReset(event) {
       // Reset our form values
       this.selected = null;
-      console.log("Reset Button!");
+
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
@@ -53,4 +60,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.btn-primary {
+  margin: 5px 5px;
+}
+</style>
+
 

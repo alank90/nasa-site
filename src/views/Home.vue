@@ -7,7 +7,7 @@
           <SideBarLinks/>
         </b-col>
         <b-col cols="9">
-          <!-- propsResults used on SearchResults component to render search results -->
+          <!-- propsResults used on nasaImagesSearchResults component to render search results -->
           <component :propsResults="nasaData" :is="currentView"></component>
         </b-col>
       </b-row>
@@ -20,7 +20,8 @@
 import SideBarLinks from "@/components/SideBar/SideBarLinks.vue";
 import MainView from "@/components/MainView.vue";
 import Apod from "@/components/SideBar/Apod.vue";
-import SearchResults from "@/components/SideBar/NasaImagesLibrary/SearchResults.vue";
+import nasaImagesSearchResults from "@/components/SideBar/NasaImagesLibrary/nasaImagesSearchResults.vue";
+import EpicSearchResults from "@/components/SideBar/Epic/EpicSearchResults.vue";
 
 export default {
   name: "home",
@@ -28,7 +29,8 @@ export default {
     SideBarLinks, // components Home.vue use. This equals SideBarLinks: SideBarLinks
     MainView,
     Apod,
-    SearchResults
+    nasaImagesSearchResults,
+    EpicSearchResults
   },
   created() {
     this.$eventBus.$on("send-data", data => {
