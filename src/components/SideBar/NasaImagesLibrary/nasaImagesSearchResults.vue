@@ -40,7 +40,7 @@
 
     <!-- =============== End ImageModal markup ======================== -->
 
-    <!-- =================== Search Results Output List  ================== -->
+    <!-- ====== NASA Images Library Search Results Output List  ======= -->
 
     <!-- Limit output to 100 items -->
 
