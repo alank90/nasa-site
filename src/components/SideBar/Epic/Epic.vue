@@ -28,6 +28,11 @@ export default {
       show: true
     };
   },
+  updated() {
+    // Send EPIC form select state on $eventbus to Home component
+    // for url formation
+    this.$eventBus.$emit("epic-form-select-data", this.epicForm.selected);
+  },
   methods: {
     onSubmit(event) {
       let url = `https://epic.gsfc.nasa.gov/api/${this.epicForm.selected} `;
@@ -35,10 +40,11 @@ export default {
         .then(response => response.json())
         .then(data => {
           const results = data;
-          console.log(results);
+          // console.log(results);
 
-          // Change View to nasaImagesSearchResults in Home.vue
+          // Change View to epicSearchResults in Home.vue
           this.$eventBus.$emit("send-data", "epicSearchResults");
+
           if (this.displayBackToFront === false) {
             this.displayBackToFront = true;
           }

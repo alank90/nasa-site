@@ -8,7 +8,7 @@
         </b-col>
         <b-col cols="9">
           <!-- propsResults used on nasaImagesSearchResults component to render search results -->
-          <component :propsResults="nasaData" :is="currentView"></component>
+          <component :propsResults="nasaData" :is="currentView" :propsSelectState="formSelectState"></component>
         </b-col>
       </b-row>
     </b-container>
@@ -37,16 +37,24 @@ export default {
       // Assign data on eventBus to currentView
       this.currentView = data;
     });
+
     this.$eventBus.$on("nasa-data", data => {
-      // Assign data on eventBus from SideBarLinks search form to nasaData
+      // Assign data on eventBus from SideBarLinks,EpicSearchresults search form to nasaData
       this.nasaData = data;
+    });
+
+    // Send EPIC form select state on $eventbus to Home component
+    // for url formation in EpicSearchResults
+    this.$eventBus.$on("epic-form-select-data", data => {
+      this.formSelectState = data;
     });
   },
   data() {
     return {
       AppDescription: "Welcome To The Planets App",
       currentView: MainView,
-      nasaData: {}
+      nasaData: {},
+      formSelectState: ""
     };
   }
 };

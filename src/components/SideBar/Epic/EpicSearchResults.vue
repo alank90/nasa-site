@@ -22,11 +22,7 @@
       >
         {{ item.caption}}
         <span>
-          <b-img
-            thumbnail
-            class="thumbnail"
-            :src="'https://epic.gsfc.nasa.gov/archive/natural/'+ pictureDate(item.date) + '.png'"
-          ></b-img>
+          <b-img thumbnail class="thumbnail" :src="urlMaker(item.date,item.image)"></b-img>
         </span>
         <!-- <span>
           <b-img
@@ -64,7 +60,7 @@
 <script>
 export default {
   name: "EpicSearchResults",
-  props: ["propsResults"],
+  props: ["propsResults", "propsSelectState"],
   data() {
     return {
       year: null,
@@ -74,23 +70,35 @@ export default {
       currentPage: 1
     };
   },
+  created() {},
   computed: {
     rows() {
       return this.$props.propsResults.length;
     }
   },
   methods: {
-    pictureDate(date) {
-      const dateArray = date.split(/[ -]+/gim);
-      dateArray = dateArray.filter((item, index) => {
-        if (index === dateArray.length - 1) {
-          dateArray.slice(-1, 1);
-        }
+    urlMaker(date, image) {
+      // Regex to split array on a space or dash
+      let dateArray = date.split(/[ -]+/gim);
+      // Last item time stamp not needed
+      dateArray.pop();
+
+      // Iterate thru dateArray
+      dateArray.forEach((item, index) => {
+        if (index === 0) this.year = item;
+        if (index === 1) this.month = item;
+        if (index === 2) this.day = item;
       });
 
-      dateArray.forEach(function(item) {
-        console.log("item is: " + item);
+      this.$eventBus.$on("epic-form-select-data", data => {
+        // Assign data on eventBus from Epic select form to selectState
+        this.$props.propsSelectState = data;
+        console.log(this.$props.propsSelectState);
       });
+
+      return `https://epic.gsfc.nasa.gov/archive/${this.selectState}/${
+        this.year
+      }/${this.month}/${this.day}/png/${image}.png`;
     }
   }
 };
