@@ -70,7 +70,6 @@ export default {
       currentPage: 1
     };
   },
-  created() {},
   computed: {
     rows() {
       return this.$props.propsResults.length;
@@ -90,15 +89,11 @@ export default {
         if (index === 2) this.day = item;
       });
 
-      this.$eventBus.$on("epic-form-select-data", data => {
-        // Assign data on eventBus from Epic select form to selectState
-        this.$props.propsSelectState = data;
-        console.log(this.$props.propsSelectState);
-      });
+      const urlQuery = `https://epic.gsfc.nasa.gov/archive/${
+        this.propsSelectState
+      }/${this.year}/${this.month}/${this.day}/png/${image}.png`;
 
-      return `https://epic.gsfc.nasa.gov/archive/${this.selectState}/${
-        this.year
-      }/${this.month}/${this.day}/png/${image}.png`;
+      return urlQuery;
     }
   }
 };

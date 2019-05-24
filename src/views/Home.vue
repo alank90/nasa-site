@@ -7,7 +7,8 @@
           <SideBarLinks/>
         </b-col>
         <b-col cols="9">
-          <!-- propsResults used on nasaImagesSearchResults component to render search results -->
+          <!-- propsResults used on nasaImagesSearchResults component to render search results  -->
+          <!-- propsSelectState used with EpicSearchResults component to pass along the select Color Image state  -->
           <component :propsResults="nasaData" :is="currentView" :propsSelectState="formSelectState"></component>
         </b-col>
       </b-row>
