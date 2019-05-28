@@ -145,6 +145,12 @@
 
       <b-list-group-item v-b-toggle="'collapse-3'" class="mt-2">EPIC</b-list-group-item>
       <b-collapse id="collapse-3">
+        <p>
+          DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument, uniquely positioned at the
+          <a
+            href="https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/"
+          >Earth-Sun Lagrange point</a>, provides daily imagery.
+        </p>
         <Epic/>
       </b-collapse>
 

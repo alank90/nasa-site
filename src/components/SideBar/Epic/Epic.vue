@@ -2,9 +2,7 @@
   <div>
     <b-form v-if="show">
       <b-form-group id="input-group-1" label="Color Image:" label-for="input-1">
-        <b-form-select id="input-1" v-model="epicForm.selected" :options="epicForm.options">
-          <b-card>Hello!</b-card>
-        </b-form-select>
+        <b-form-select id="input-1" v-model="epicForm.selected" :options="epicForm.options"></b-form-select>
       </b-form-group>
 
       <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
@@ -70,6 +68,10 @@ export default {
 <style scoped>
 .btn-primary {
   margin: 5px 5px;
+}
+
+#input-group-1 {
+  margin-top: 5px;
 }
 </style>
 

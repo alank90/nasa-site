@@ -1,66 +1,49 @@
 <template>
-  <div class="results overflow-auto" v-cloak>
+  <!-- ============================================================== -->
+  <!-- =========== EPIC Search Results Output Carousel ============== -->
+  <!-- ============================================================== -->
+
+  <!-- Limit output to 100 items -->
+  <b-container v-cloak>
     <h3>EPIC Search Results</h3>
-    <!-- ============================================================== -->
-    <!-- =========== EPIC Search Results Output List ================== -->
-    <!-- ============================================================== -->
-
-    <!-- Limit output to 100 items -->
-    <b-list-group
-      class="search-results"
-      id="my-list"
-      :per-page="perPage"
-      :current-page="currentPage"
+    <carousel-3d
+      :controls-visible="true"
+      :controls-prev-html="'&#10092;'"
+      :controls-next-html="'&#10093;'"
+      :controls-width="60"
+      :controls-height="100"
+      :clickable="false"
+      :height="370"
+      :border="5"
     >
-      <b-list-group-item v-if="propsResults.length === 0  || propsResults === undefined">
+      <slide v-if="propsResults.length === 0  || propsResults === undefined">
         <p>No Search Results</p>
-      </b-list-group-item>
-      <b-list-group-item
-        v-else
-        v-for="(item, index) in propsResults.slice(10*(currentPage-1),10*(currentPage))"
-        :key="index"
-      >
-        {{ item.caption}}
-        <span>
-          <b-img thumbnail class="thumbnail" :src="urlMaker(item.date,item.image)"></b-img>
-        </span>
-        <!-- <span>
-          <b-img
-            thumbnail
-            class="thumbnail"
-            :data-index="index + 10*(currentPage-1)"
-            :src="item.links[0].href"
-            alt="Fluid image"
-            id="show-modal"
-            v-on:click="imageModal"
-          ></b-img>
-        </span>-->
-      </b-list-group-item>
-    </b-list-group>
-    <!-- ====================================================================== -->
-    <!-- ============= End Search Results Output List  ======================== -->
-    <!-- ====================================================================== -->
-
-    <!-- ======== Pagination Markup  ============ -->
-
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
-
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-list"
-    ></b-pagination>
-
-    <!--======= End Pagination Markup =========== -->
-  </div>
+      </slide>
+      <slide v-else v-for="(slide, index) in propsResults" :index="index" :key="index">
+        <p class="image-title">Image {{ index + 1 }}</p>
+        <figure>
+          <img fluid-grow :src="urlMaker(slide.date,slide.image)">
+          <figcaption>{{ slide.caption }}</figcaption>
+        </figure>
+      </slide>
+    </carousel-3d>
+  </b-container>
+  <!-- ====================================================================== -->
+  <!-- ============= End Search Results Output Carousel  ==================== -->
+  <!-- ====================================================================== -->
 </template>
 
 
 <script>
+import { Carousel3d, Slide } from "vue-carousel-3d";
+
 export default {
   name: "EpicSearchResults",
   props: ["propsResults", "propsSelectState"],
+  components: {
+    Carousel3d,
+    Slide
+  },
   data() {
     return {
       year: null,
@@ -99,39 +82,46 @@ export default {
 };
 </script>
 
-<style scoped>
-.row {
-  justify-content: flex-start;
+/* The Unscoped CSS overrides the Vue-Carousel-3d CSS rules */
+<style>
+.carousel-3d-slide {
+  border: 5px solid rgba(13, 103, 219, 0.808);
 }
 
-.search-results {
-  list-style: none;
-  font-size: 18px;
+.next span, .prev span {
+  color: #fff;
+  font-size: 5rem;
   font-weight: 700;
 }
+</style>
 
-.list-group-item {
-  border: none;
-  margin-bottom: 5px;
-  line-height: 1.33;
-  color: #1a0dab;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.list-group-item:hover {
-  text-decoration: underline;
-}
-.list-group-item:visited {
-  color: #660099;
+
+<style scoped>
+[v-cloak] {
+  display: none;
 }
 
-img.thumbnail {
-  max-width: 8vw;
-  max-height: 8vh;
-  vertical-align: text-bottom;
-  margin-left: 20px;
+/* Carousel Stylings */
+
+.carousel-3d-container figure {
+  margin: 0;
 }
 
-ul.pagination {
-  justify-content: center;
+.carousel-3d-container figcaption {
+  position: absolute;
+  background-color: rgba(75, 117, 196, 0.5);
+  color: #fff;
+  bottom: 0;
+  padding: 5px;
+  font-size: 14px;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.image-title {
+  margin: 0;
+  background-color: rgba(75, 117, 196, 0.5);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: center;
 }
 </style>
