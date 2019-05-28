@@ -43,6 +43,9 @@ The src prop (and blank-src prop of <b-img-lazy>), out of the box, works only wi
 [Vue-Carousel-3d site](https://wlada.github.io/vue-carousel-3d/)
 
 [Bootstrap-Vue](https://bootstrap-vue.js.org/)
+
+[Vue-Date-Picker](https://vuejsexamples.com/datepicker-component-for-vue-2/)
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
