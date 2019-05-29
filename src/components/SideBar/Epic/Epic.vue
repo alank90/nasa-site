@@ -6,7 +6,8 @@
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Pick a Date For Pictures" label-for="input-2">
-        <datepicker value="2019-5-28" format="YYYY-M-D" name="date1"></datepicker>
+        <!--  ref attribute allows us access to component datepicker's data object -->
+        <datepicker ref="datePicked" value="2019-5-28" format="YYYY-M-D" name="date2"></datepicker>
       </b-form-group>
 
       <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
@@ -41,13 +42,18 @@ export default {
   },
   methods: {
     onSubmit(event) {
-      let url = `https://epic.gsfc.nasa.gov/api/${this.epicForm.selected} `;
-      console.log(pickedValue);
+      let datePicked = this.$refs.datePicked.pickedValue;
+      // datePicked = convertDate(datePicked);
+      console.log(datePicked);
+
+      // date needs formate https://epic.gsfc.nasa.gov/api/natural/date/20190509
+      let url = `https://epic.gsfc.nasa.gov/api/${this.epicForm.selected}`;
+
       fetch(url)
         .then(response => response.json())
         .then(data => {
           const results = data;
-
+          console.log(results);
           // Change View to epicSearchResults in Home.vue
           this.$eventBus.$emit("send-data", "epicSearchResults");
 
@@ -55,7 +61,7 @@ export default {
             this.displayBackToFront = true;
           }
 
-          // Send NASA Search Data results on event Bus to Home.vue
+          // Send NASA Search Data for EPIC date results on event Bus to Home.vue
           this.$eventBus.$emit("nasa-data", results);
         });
     },
@@ -67,6 +73,14 @@ export default {
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
+      });
+    },
+    convertDate(date) {
+      let d = date.split("-");
+      d.forEach(element, index => {
+        // Pad mm and dd w/zero if necessary
+        console.log(index);
+        return d;
       });
     }
   }

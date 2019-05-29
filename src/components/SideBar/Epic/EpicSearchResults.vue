@@ -98,7 +98,7 @@ export default {
   min-width: 100%;
   min-height: 370px;
   border-radius: 10px;
-  border: 5px solid rgba(13, 103, 219, 0.808);
+  border: 5px solid rgba(13, 103, 219, 0.608);
   box-shadow: inset 0 50px rgba(255, 255, 255, 0.2),
     inset 0 -15px 30px rgba(0, 0, 0, 0.4), 0 5px 10px rgba(0, 0, 0, 0.5);
   -moz-transform: translate(-15px, -285px);
