@@ -7,7 +7,7 @@
 
       <b-form-group id="input-group-2" label="Pick a Date For Pictures" label-for="input-2">
         <!--  ref attribute allows us access to component datepicker's data object -->
-        <datepicker ref="datePicked" value="2019-5-28" format="YYYY-M-D" name="date2"></datepicker>
+        <datepicker else ref="datePicked" value="2019-5-28" format="YYYY-M-D" name="date2"></datepicker>
       </b-form-group>
 
       <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
@@ -43,17 +43,19 @@ export default {
   methods: {
     onSubmit(event) {
       let datePicked = this.$refs.datePicked.pickedValue;
-      // datePicked = convertDate(datePicked);
-      console.log(datePicked);
+      datePicked = this.convertDate(datePicked);
+      this.noApiResults = false;
 
-      // date needs formate https://epic.gsfc.nasa.gov/api/natural/date/20190509
-      let url = `https://epic.gsfc.nasa.gov/api/${this.epicForm.selected}`;
+      // date needs format https://epic.gsfc.nasa.gov/api/natural/date/YYYYMMDD
+      let url = `https://epic.gsfc.nasa.gov/api/${
+        this.epicForm.selected
+      }/date/${datePicked}`;
 
       fetch(url)
         .then(response => response.json())
         .then(data => {
           const results = data;
-          console.log(results);
+
           // Change View to epicSearchResults in Home.vue
           this.$eventBus.$emit("send-data", "epicSearchResults");
 
@@ -76,12 +78,18 @@ export default {
       });
     },
     convertDate(date) {
+      let convertedDate = "";
       let d = date.split("-");
-      d.forEach(element, index => {
+
+      d.forEach(element => {
         // Pad mm and dd w/zero if necessary
-        console.log(index);
-        return d;
+        if (element.length === 1) {
+          element = "0" + element;
+        }
+        convertedDate += element;
       });
+
+      return convertedDate;
     }
   }
 };

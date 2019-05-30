@@ -3,8 +3,12 @@
   <!-- =========== EPIC Search Results Output Carousel ============== -->
   <!-- ============================================================== -->
 
-  <!-- Limit output to 100 items -->
-  <b-container v-cloak>
+  <div v-if="propsResults.length === 0  || propsResults === undefined" v-cloak>
+    <p class="noResults">No Pictures Available for this Date.</p>
+  </div>
+
+  <!-- Else output slides -->
+  <b-container v-else v-cloak>
     <h3>EPIC Search Results</h3>
     <p>
       Pictures from DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument, uniquely positioned at the
@@ -23,10 +27,7 @@
       :height="370"
       :border="5"
     >
-      <slide v-if="propsResults.length === 0  || propsResults === undefined">
-        <p>No Search Results</p>
-      </slide>
-      <slide v-else v-for="(slide, index) in propsResults" :index="index" :key="index">
+      <slide v-for="(slide, index) in propsResults" :index="index" :key="index">
         <p class="image-title">Image {{ index + 1 }} of {{propsResults.length + 1}}</p>
         <figure>
           <img fluid-grow :src="urlMaker(slide.date,slide.image)">
@@ -34,6 +35,9 @@
         </figure>
       </slide>
     </carousel-3d>
+
+    <!-- ========= Slides Play Button Markup ========== -->
+    <b-img class="play-button" src="@/assets/play-pause.png"></b-img>
   </b-container>
   <!-- ====================================================================== -->
   <!-- ============= End Search Results Output Carousel  ==================== -->
@@ -121,6 +125,15 @@ export default {
 <style scoped>
 [v-cloak] {
   display: none;
+}
+
+.play-button {
+  margin-top: -10px;
+}
+
+.noResults {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 /* Carousel Stylings */
