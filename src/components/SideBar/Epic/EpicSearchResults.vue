@@ -26,9 +26,10 @@
       :clickable="false"
       :height="370"
       :border="5"
+      :autoplay="startSlides"
     >
       <slide v-for="(slide, index) in propsResults" :index="index" :key="index">
-        <p class="image-title">Image {{ index + 1 }} of {{propsResults.length + 1}}</p>
+        <p class="image-title">Image {{ index + 1 }} of {{propsResults.length}}</p>
         <figure>
           <img fluid-grow :src="urlMaker(slide.date,slide.image)">
           <figcaption>{{ slide.caption }}</figcaption>
@@ -37,7 +38,13 @@
     </carousel-3d>
 
     <!-- ========= Slides Play Button Markup ========== -->
-    <b-img class="play-button" src="@/assets/play-pause.png"></b-img>
+    <b-img
+      @click="playSlides"
+      class="play-button"
+      src="@/assets/play-pause.png"
+      v-b-tooltip.hover
+      title="Click and hover mouse enter/leave to begin/end slide show"
+    ></b-img>
   </b-container>
   <!-- ====================================================================== -->
   <!-- ============= End Search Results Output Carousel  ==================== -->
@@ -60,6 +67,7 @@ export default {
       year: null,
       month: null,
       day: null,
+      startSlides: false,
       perPage: 15,
       currentPage: 1
     };
@@ -88,6 +96,10 @@ export default {
       }/${this.year}/${this.month}/${this.day}/png/${image}.png`;
 
       return urlQuery;
+    },
+    playSlides() {
+      this.startSlides = !this.startSlides;
+      console.log(this.startSlides);
     }
   }
 };

@@ -50,7 +50,7 @@ You can assign a reference ID to the child component using the ref attribute. Fo
 
 Now in the Parent component where you’ve defined this ref, you can use:
 
-```this.$refs.datePicked.pickedValue
+this.$refs.datePicked.pickedValue
 
 to access the <datepicker> instance. This may be useful when you want to, for example, programmatically focus this input from a parent. In that case, the <datepicker> component may similarly use a ref to provide access to specific elements inside it.
 
