@@ -10,13 +10,18 @@
   <!-- Else output slides -->
   <b-container v-else v-cloak>
     <h3>EPIC Search Results</h3>
-    <p>
-      Pictures from DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument, uniquely positioned at the
-      <a
-        href="https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/"
-      >Earth-Sun Lagrange point</a>, EPIC provides full disc imagery of the Earth and captures unique perspectives
-      of certain astronomical events such as lunar transits.
-    </p>
+    <div v-b-toggle.collapse-3>
+      <span class="carousel-chevron" title="Hide">&#xbb;</span>
+      <p class="carousel-title">
+        <b-collapse visible id="collapse-3">
+          Pictures from DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument, uniquely positioned at the
+          <a
+            href="https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/"
+          >Earth-Sun Lagrange point</a>, EPIC provides full disc imagery of the Earth and captures unique perspectives
+          of certain astronomical events such as lunar transits.
+        </b-collapse>
+      </p>
+    </div>
     <carousel-3d
       :controls-visible="true"
       :controls-prev-html="'&#10092;'"
@@ -67,15 +72,8 @@ export default {
       year: null,
       month: null,
       day: null,
-      startSlides: false,
-      perPage: 15,
-      currentPage: 1
+      startSlides: false
     };
-  },
-  computed: {
-    rows() {
-      return this.$props.propsResults.length;
-    }
   },
   methods: {
     urlMaker(date, image) {
@@ -137,6 +135,15 @@ export default {
 <style scoped>
 [v-cloak] {
   display: none;
+}
+
+.carousel-chevron {
+  font-size: 2.4rem;
+  cursor: pointer;
+}
+
+.carousel-title {
+  margin-top: -10px;
 }
 
 .play-button {
