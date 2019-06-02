@@ -10,16 +10,15 @@
   <!-- Else output slides -->
   <b-container v-else v-cloak>
     <h3>EPIC Search Results</h3>
-    <div v-b-toggle.collapse-3>
-      <span class="carousel-chevron" title="Hide">&#xbb;</span>
-      <p class="carousel-title">
-        <b-collapse visible id="collapse-3">
-          Pictures from DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument, uniquely positioned at the
-          <a
-            href="https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/"
-          >Earth-Sun Lagrange point</a>, EPIC provides full disc imagery of the Earth and captures unique perspectives
-          of certain astronomical events such as lunar transits.
-        </b-collapse>
+    <div>
+      <span @click="hideCarouselTitle" class="carousel-chevron" title="Hide">&#xbb;</span>
+      <p class="carousel-title" :class="{hidden: isHidden}">
+        Pictures from DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument, uniquely positioned at the
+        <a
+          href="https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/"
+        >Earth-Sun Lagrange point</a>
+        , EPIC provides full disc imagery of the Earth and captures unique perspectives
+        of certain astronomical events such as lunar transits.
       </p>
     </div>
     <carousel-3d
@@ -72,7 +71,8 @@ export default {
       year: null,
       month: null,
       day: null,
-      startSlides: false
+      startSlides: false,
+      isHidden: false
     };
   },
   methods: {
@@ -98,6 +98,9 @@ export default {
     playSlides() {
       this.startSlides = !this.startSlides;
       console.log(this.startSlides);
+    },
+    hideCarouselTitle() {
+      this.isHidden = !this.isHidden;
     }
   }
 };
@@ -153,6 +156,10 @@ export default {
 .noResults {
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Carousel Stylings */
