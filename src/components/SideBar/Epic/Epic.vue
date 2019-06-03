@@ -7,7 +7,7 @@
 
       <b-form-group id="input-group-2" label="Pick a Date For Pictures" label-for="input-2">
         <!--  ref attribute allows us access to component datepicker's data object -->
-        <datepicker else ref="datePicked" value="2019-5-28" format="YYYY-M-D" name="date2"></datepicker>
+        <datepicker else ref="datePicked" :value="getToday" format="YYYY-M-D" name="date2"></datepicker>
       </b-form-group>
 
       <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
@@ -39,6 +39,18 @@ export default {
     // Send EPIC form select state on $eventbus to Home component
     // for url formation
     this.$eventBus.$emit("epic-form-select-data", this.epicForm.selected);
+  },
+  computed: {
+    getToday: function() {
+      let today = new Date();
+      let dd = String(today.getDate() - 1);
+      let mm = String(today.getMonth() + 1); //January is 0!
+      let yyyy = today.getFullYear();
+
+      today = `${yyyy}-${mm}-${dd}`;
+
+      return today;
+    }
   },
   methods: {
     onSubmit(event) {

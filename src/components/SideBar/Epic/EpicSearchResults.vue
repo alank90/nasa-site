@@ -10,17 +10,22 @@
   <!-- Else output slides -->
   <b-container v-else v-cloak>
     <h3>EPIC Search Results</h3>
-    <div>
-      <span @click="hideCarouselTitle" class="carousel-chevron" title="Hide">&#xbb;</span>
-      <p class="carousel-title" :class="{hidden: isHidden}">
-        Pictures from DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument, uniquely positioned at the
-        <a
-          href="https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/"
-        >Earth-Sun Lagrange point</a>
-        , EPIC provides full disc imagery of the Earth and captures unique perspectives
-        of certain astronomical events such as lunar transits.
-      </p>
-    </div>
+
+    <div
+      @click="hideCarouselTitle"
+      class="carousel-chevron"
+      :class="{rotate}"
+      title="Hide/Show"
+    >&#xbb;</div>
+    <p class="carousel-title" :class="{hidden: isHidden}">
+      Pictures from DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument, uniquely positioned at the
+      <a
+        href="https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/"
+      >Earth-Sun Lagrange point</a>
+      , EPIC provides full disc imagery of the Earth and captures unique perspectives
+      of certain astronomical events such as lunar transits.
+    </p>
+
     <carousel-3d
       :controls-visible="true"
       :controls-prev-html="'&#10092;'"
@@ -72,7 +77,8 @@ export default {
       month: null,
       day: null,
       startSlides: false,
-      isHidden: false
+      isHidden: false,
+      rotate: false
     };
   },
   methods: {
@@ -101,6 +107,7 @@ export default {
     },
     hideCarouselTitle() {
       this.isHidden = !this.isHidden;
+      this.rotate = !this.rotate;
     }
   }
 };
@@ -141,12 +148,22 @@ export default {
 }
 
 .carousel-chevron {
-  font-size: 2.4rem;
+  font-weight: 700;
   cursor: pointer;
+  width: 10vw;
+  margin: -5px auto 10px;
+  transform: scale(3);
+  transition: all 300ms;
+}
+
+.carousel-chevron.rotate {
+  transform: rotate(90deg) scale(3);
 }
 
 .carousel-title {
   margin-top: -10px;
+  height: 10vh;
+  transition: all 300ms;
 }
 
 .play-button {
@@ -159,7 +176,8 @@ export default {
 }
 
 .hidden {
-  display: none;
+  height: 0;
+  opacity: 0;
 }
 
 /* Carousel Stylings */

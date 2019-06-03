@@ -54,13 +54,16 @@
             </b-form-group>
 
             <b-form-group id="input-group-2" label="*Media Type" label-for="input-2">
-              <b-form-input
+              <b-form-select
+                v-model="formResponses.media_type"
                 :class="status($v.formResponses.media_type)"
                 id="input-2"
                 v-model.lazy="$v.formResponses.media_type.$model"
-                type="text"
-                placeholder="Enter media-type e.g. image"
-              ></b-form-input>
+              >
+                <option :value="null">Please select an option</option>
+                <option value="image">Image</option>
+                <option value="audio">Audio</option>
+              </b-form-select>
               <!-- Validation for media_type  -->
               <span
                 class="checkmark"
@@ -70,11 +73,7 @@
                 <p
                   class="error-message"
                   v-if="!$v.formResponses.media_type.required"
-                >*Media Type is required</p>
-                <p
-                  class="error-message"
-                  v-if="!$v.formResponses.media_type.checkMediaType"
-                >*Media Type must be "image" or "audio"</p>
+                >*A Media Type is required</p>
               </div>
             </b-form-group>
 
@@ -172,11 +171,10 @@ export default {
       displayApod: true,
       formResponses: {
         q: "",
-        media_type: "",
+        media_type: null,
         year_start: "",
         year_end: ""
       },
-      validMediaTypes: ["image", "audio"],
       show: true
     };
   },
@@ -190,10 +188,7 @@ export default {
         minLength: minLength(2)
       },
       media_type: {
-        required,
-        checkMediaType(media_type) {
-          return this.validMediaTypes.includes(media_type);
-        }
+        required
       },
       year_start: {
         between: between(1959, 2019)
@@ -246,7 +241,7 @@ export default {
       // This is .reduce method for objects. If key value is empty
       // string delete it.
       Object.entries(this.formResponses).forEach(([key, value]) => {
-        if (value === "") {
+        if (value === "" || this.formResponses[key] === "options") {
           delete this.formResponses[key];
         } else {
           uri += `${key}=${this.formResponses[key]}&`; // Build the url request
@@ -276,7 +271,7 @@ export default {
 
       // reset formResponses values
       this.formResponses.q = "";
-      this.formResponses.media_type = "";
+      this.formResponses.media_type = null;
       this.formResponses.year_start = "";
       this.formResponses.year_end = "";
       this.$v.$reset();
@@ -287,7 +282,7 @@ export default {
       });
     }, // ======================= Vuelidate Logic Here ============================================ //
     status(validation, e) {
-      // Check if $v.formResponses.q.$error || $dirty are true and return objects for class to show or not
+      // Check if $v.formResponses.$form-name.$error || $dirty are true and return objects for class to show or not
       return {
         error: validation.$error,
         dirty: validation.$dirty

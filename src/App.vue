@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Home </router-link><span>&#124;</span>
+      <router-link to="/about"> About</router-link>
     </div>
     <router-view/>
   </div>
@@ -29,5 +29,9 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+span {
+  font-size: 2.6rem;
 }
 </style>
