@@ -152,7 +152,6 @@
       <!-- ==================================================================== -->
 
       <!-- ====================================================================== -->
-      <b-list-group-item href="#foobar" disabled class="mt-2">Disabled link</b-list-group-item>
     </b-list-group>
   </div>
 </template>
@@ -294,10 +293,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.list-group-item {
+  border-radius: 5px;
+  background-color: rgba(68, 124, 167, 0.8);
+  color:skyblue;
+}
+
 .list-group-item-action:hover,
 .list-group-item:hover {
-  background-color: #0065b34b;
+  background-color: rgba(68, 124, 167, 0.6);
   cursor: pointer;
+  color: #fff;
 }
 
 .img-fluid {

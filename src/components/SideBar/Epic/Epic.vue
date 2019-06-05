@@ -11,7 +11,6 @@
       </b-form-group>
 
       <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
-      <b-button @click.prevent="onReset" variant="danger">Reset</b-button>
     </b-form>
   </div>
 </template>
@@ -78,16 +77,6 @@ export default {
           // Send NASA Search Data for EPIC date results on event Bus to Home.vue
           this.$eventBus.$emit("nasa-data", results);
         });
-    },
-    onReset(event) {
-      // Reset our form values
-      this.selected = null;
-
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
     },
     convertDate(date) {
       let convertedDate = "";

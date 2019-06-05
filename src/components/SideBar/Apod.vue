@@ -88,7 +88,12 @@ img.img-fluid {
 }
 
 .jumbotron {
-  background-color: #b4d5ef;
+  background-color: rgba(137, 196, 244, 0.65);
+}
+.jumbotron p {
+  color: #000;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 </style>
 

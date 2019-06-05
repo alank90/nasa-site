@@ -64,6 +64,7 @@ export default {
 <style scoped>
 h2 {
   font-size: 2.5rem;
+  color: rgba(242, 202, 39, 0.609);
   margin-bottom: 40px;
   font-weight: 600;
 }

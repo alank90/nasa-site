@@ -133,6 +133,8 @@ h1 {
   justify-content: flex-start;
 }
 
+/* ======== Modal Stylings ============ */
+
 .modal-image {
   max-width: 50vw;
   max-height: 65vh;
@@ -175,6 +177,8 @@ h1 {
   transform: scale(2);
 }
 
+/* ======== End of Modal Stylings =========== */
+
 .search-results {
   list-style: none;
   font-size: 18px;
@@ -186,7 +190,8 @@ h1 {
   margin-bottom: 5px;
   line-height: 1.33;
   color: #1a0dab;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .list-group-item:hover {
   text-decoration: underline;
