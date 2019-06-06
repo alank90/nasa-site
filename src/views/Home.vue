@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2>{{ AppDescription }}</h2>
+    <appTitle></appTitle>
     <b-container class="bv-example-row bv-example-row-flex-cols" fluid>
       <b-row align-h="start">
         <b-col cols="3">
@@ -23,6 +23,7 @@ import MainView from "@/components/MainView.vue";
 import Apod from "@/components/SideBar/Apod.vue";
 import nasaImagesSearchResults from "@/components/SideBar/NasaImagesLibrary/nasaImagesSearchResults.vue";
 import EpicSearchResults from "@/components/SideBar/Epic/EpicSearchResults.vue";
+import appTitle from "@/components/appTitle.vue";
 
 export default {
   name: "home",
@@ -31,7 +32,8 @@ export default {
     MainView,
     Apod,
     nasaImagesSearchResults,
-    EpicSearchResults
+    EpicSearchResults,
+    appTitle
   },
   created() {
     this.$eventBus.$on("send-data", data => {
@@ -52,7 +54,6 @@ export default {
   },
   data() {
     return {
-      AppDescription: "Welcome To The Planets App",
       currentView: MainView,
       nasaData: {},
       formSelectState: ""
@@ -60,13 +61,4 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-h2 {
-  font-size: 2.5rem;
-  color: rgba(242, 202, 39, 0.609);
-  margin-bottom: 40px;
-  font-weight: 600;
-}
-</style>
 

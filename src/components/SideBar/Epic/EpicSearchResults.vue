@@ -147,8 +147,12 @@ export default {
   display: none;
 }
 
+h3 {
+  color: rgba(242, 202, 39, 0.609);
+}
 .carousel-chevron {
   font-weight: 700;
+  color: #fff;
   cursor: pointer;
   width: 10vw;
   margin: -5px auto 10px;
@@ -161,6 +165,7 @@ export default {
 }
 
 .carousel-title {
+  color: #fff;
   margin-top: -10px;
   height: 10vh;
   transition: all 300ms;
@@ -168,6 +173,8 @@ export default {
 
 .play-button {
   margin-top: -10px;
+  border: 5px solid #fff;
+  border-radius: 50%;
 }
 
 .noResults {
