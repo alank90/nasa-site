@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>{{ appTitle }}</h2>
+    <div v-html="pageSubHeading"></div>
     <b-img :src="imgSrc" class="planet"></b-img>
   </div>
 </template>
@@ -10,8 +10,10 @@ export default {
   name: "appDescription",
   data() {
     return {
-      appTitle: "Welcome To The Planets App",
-      imgSrc: require("@/assets/moon.png")
+      earthPic: require("@/assets/earth.png"),
+      imgSrc: require("@/assets/moon.png"),
+      pageSubHeading:
+        "<h2>Welc<img src='/src/assets/earth.png' alt=''>me To The Planets App</h2>"
     };
   }
 };
@@ -19,11 +21,14 @@ export default {
 
 <style scoped>
 .container {
-  position:relative;
+  position: relative;
+  width: 80%;
+  max-width: 800px;
 }
 
 h2 {
   font-size: 2.5rem;
+  position: relative;
   color: rgba(242, 202, 39, 0.609);
   margin-bottom: 40px;
   font-weight: 600;
@@ -33,15 +38,14 @@ h2 {
   width: 12%;
   position: absolute;
   top: 0;
-  left: 0;
-
-  animation: orbit 4s linear infinite;
+  left: 65px;
+  animation: orbit 10s linear infinite;
 }
 .planet:hover {
   animation-play-state: paused;
 }
 
-/* @keyframes orbit {
+@keyframes orbit {
   0% {
     transform: rotate(0deg) translateX(5px) translateY(120px) rotate(0deg)
       scale(1);
@@ -62,7 +66,7 @@ h2 {
   100% {
     transform: rotate(360deg) translateX(5px) translateY(120px) rotate(-360deg)
       scale(1);
-  } 
-}*/
+  }
+}
 </style>
 
