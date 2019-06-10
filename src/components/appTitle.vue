@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <div v-html="pageSubHeading"></div>
-    <b-img :src="imgSrc" class="planet"></b-img>
+    <h2 class="app-title">Welc</h2>
+    <b-img :src="earthPic" class="earth"></b-img>
+    <h2 class="app-title">me To The Planets App</h2>
+
+    <b-img :src="moonPic" class="moon"></b-img>
   </div>
 </template>
 
@@ -11,9 +14,9 @@ export default {
   data() {
     return {
       earthPic: require("@/assets/earth.png"),
-      imgSrc: require("@/assets/moon.png"),
-      pageSubHeading:
-        "<h2>Welc<img src='/src/assets/earth.png' alt=''>me To The Planets App</h2>"
+      moonPic: require("@/assets/moon.png")
+      // pageSubHeading:
+      //   "<h2>Welc</h2><img src='/src/assets/earth.png'/><h2>me To The Planets App</h2>"
     };
   }
 };
@@ -26,22 +29,27 @@ export default {
   max-width: 800px;
 }
 
-h2 {
+.app-title {
   font-size: 2.5rem;
+  display: inline-block;
   position: relative;
   color: rgba(242, 202, 39, 0.609);
   margin-bottom: 40px;
   font-weight: 600;
 }
 
-.planet {
+.earth {
+  width: 5.5rem;
+}
+
+.moon {
   width: 12%;
   position: absolute;
   top: 0;
   left: 65px;
   animation: orbit 10s linear infinite;
 }
-.planet:hover {
+.moon:hover {
   animation-play-state: paused;
 }
 
