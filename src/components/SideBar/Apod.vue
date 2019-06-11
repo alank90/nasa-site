@@ -74,7 +74,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h1.display-3 {
   font-size: 2rem;
 }
@@ -83,8 +83,9 @@ p {
   margin-top: 30px;
 }
 
-img.img-fluid {
-  max-width: 800px;
+.img-fluid {
+  max-width: 95%;
+  height: auto;
 }
 
 .jumbotron {

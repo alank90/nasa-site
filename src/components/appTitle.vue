@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <h2 class="app-title">Welc</h2>
-    <b-img :src="earthPic" class="earth"></b-img>
+    <h2 class="app-title">
+      Welc
+      <b-img :src="earthPic" class="earth"></b-img>
+    </h2>
+
     <h2 class="app-title">me To The Planets App</h2>
 
     <b-img :src="moonPic" class="moon"></b-img>
@@ -15,8 +18,6 @@ export default {
     return {
       earthPic: require("@/assets/earth.png"),
       moonPic: require("@/assets/moon.png")
-      // pageSubHeading:
-      //   "<h2>Welc</h2><img src='/src/assets/earth.png'/><h2>me To The Planets App</h2>"
     };
   }
 };
@@ -32,21 +33,23 @@ export default {
 .app-title {
   font-size: 2.5rem;
   display: inline-block;
-  position: relative;
+  margin: 0 0 0 -15px;
   color: rgba(242, 202, 39, 0.609);
   margin-bottom: 40px;
   font-weight: 600;
+  transition: all 0.5s linear;
 }
 
 .earth {
-  width: 5.5rem;
+  width: 6.5rem;
+  margin-left: -25px;
 }
 
 .moon {
-  width: 12%;
+  width: 10%;
   position: absolute;
-  top: 0;
-  left: 65px;
+  top: 6.7%;
+  left: 18.35%;
   animation: orbit 10s linear infinite;
 }
 .moon:hover {
@@ -55,25 +58,39 @@ export default {
 
 @keyframes orbit {
   0% {
-    transform: rotate(0deg) translateX(5px) translateY(120px) rotate(0deg)
-      scale(1);
+    transform: rotate(0deg) translateX(5px) translateY(120px) scale(1);
   }
 
   25% {
-    transform: rotate(90deg) translateX(5px) translateY(120px) rotate(-90deg)
-      scale(0.75);
+    transform: rotate(90deg) translateX(5px) translateY(120px) scale(0.75);
   }
   50% {
-    transform: rotate(180deg) translateX(5px) translateY(120px) rotate(-180deg)
-      scale(0.6);
+    transform: rotate(180deg) translateX(5px) translateY(120px) scale(0.6);
   }
   75% {
-    transform: rotate(270deg) translateX(5px) translateY(120px) rotate(-270deg)
-      scale(0.75);
+    transform: rotate(270deg) translateX(5px) translateY(120px) scale(0.75);
   }
   100% {
-    transform: rotate(360deg) translateX(5px) translateY(120px) rotate(-360deg)
-      scale(1);
+    transform: rotate(360deg) translateX(5px) translateY(120px) scale(1);
+  }
+}
+
+/* Media Queries */
+@media screen and (max-width: 850px) {
+  .app-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .app-title {
+    font-size: 0.9rem;
+  }
+  .earth {
+    width: 5rem;
+    margin-right: -2px;
+    margin-left: -20px;
+   
   }
 }
 </style>

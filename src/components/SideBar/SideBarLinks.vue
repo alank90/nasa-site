@@ -291,23 +291,28 @@ export default {
 };
 </script>
 
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.list-group-item {
+.list-group-item,
+.list-group-item-action {
   border-radius: 5px;
   background-color: rgba(68, 124, 167, 0.8);
-  color:skyblue;
+  color: skyblue;
+  text-align: center;
+  transition: all 0.2s linear;
 }
 
 .list-group-item-action:hover,
 .list-group-item:hover {
   background-color: rgba(68, 124, 167, 0.6);
   cursor: pointer;
-  color: #fff;
+  /* color: #fff; */
 }
 
 .img-fluid {
   max-width: 70%;
+  height: auto;
 }
 
 .form-group {
@@ -377,4 +382,11 @@ p.error {
   outline-color: #f99;
 }
 /* ============== End Vuelidate Error Stylings ============ */
+
+/* Media Queries */
+@media screen and (max-width: 850px) {
+  .list-group-item {
+    font-size: 2vw;
+  }
+}
 </style>

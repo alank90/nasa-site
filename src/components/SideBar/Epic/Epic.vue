@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form v-if="show">
+    <b-form class="epicForm" v-if="show">
       <b-form-group id="input-group-1" label="Color Image:" label-for="input-1">
         <b-form-select id="input-1" v-model="epicForm.selected" :options="epicForm.options"></b-form-select>
       </b-form-group>
@@ -96,6 +96,7 @@ export default {
 };
 </script>
 
+
 <style scoped>
 .btn-primary {
   margin: 5px 5px;
@@ -103,6 +104,23 @@ export default {
 
 #input-group-1 {
   margin-top: 5px;
+}
+
+.epicForm {
+  border-radius: 5px;
+  background-color: rgba(68, 124, 167, 0.8);
+  color: skyblue;
+  text-align: center;
+  transition: all 0.2s linear;
+}
+
+.epicForm:hover {
+  background-color: rgba(68, 124, 167, 0.6);
+  color: #fff;
+}
+
+input[name="date2"] {
+  width: 3vw;
 }
 </style>
 
