@@ -96,6 +96,13 @@ export default {
 };
 </script>
 
+<style>
+input[name="date2"] {
+  max-width: 70%;
+  margin-left: -30px;
+}
+</style>
+
 
 <style scoped>
 .btn-primary {
@@ -117,10 +124,6 @@ export default {
 .epicForm:hover {
   background-color: rgba(68, 124, 167, 0.6);
   color: #fff;
-}
-
-input[name="date2"] {
-  width: 3vw;
 }
 </style>
 

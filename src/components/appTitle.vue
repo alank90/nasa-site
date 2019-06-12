@@ -5,7 +5,7 @@
       <b-img :src="earthPic" class="earth"></b-img>
     </h2>
 
-    <h2 class="app-title">me To The Planets App</h2>
+    <h2 class="app-title">me To The NASA App</h2>
 
     <b-img :src="moonPic" class="moon"></b-img>
   </div>
@@ -58,20 +58,20 @@ export default {
 
 @keyframes orbit {
   0% {
-    transform: rotate(0deg) translateX(5px) translateY(120px) scale(1);
+    transform: rotate(0deg) translateX(120px) scale(1);
   }
 
   25% {
-    transform: rotate(90deg) translateX(5px) translateY(120px) scale(0.75);
+    transform: rotate(90deg) translateX(120px) scale(1.4);
   }
   50% {
-    transform: rotate(180deg) translateX(5px) translateY(120px) scale(0.6);
+    transform: rotate(180deg) translateX(120px) scale(1);
   }
   75% {
-    transform: rotate(270deg) translateX(5px) translateY(120px) scale(0.75);
+    transform: rotate(270deg) translateX(120px) scale(0.6);
   }
   100% {
-    transform: rotate(360deg) translateX(5px) translateY(120px) scale(1);
+    transform: rotate(360deg) translateX(120px) scale(1);
   }
 }
 
@@ -90,7 +90,25 @@ export default {
     width: 5rem;
     margin-right: -2px;
     margin-left: -20px;
-   
+  }
+
+  @keyframes orbit {
+    0% {
+      transform: rotate(0deg) translateX(60px) scale(1);
+    }
+
+    25% {
+      transform: rotate(90deg) translateX(60px) scale(1.4);
+    }
+    50% {
+      transform: rotate(180deg) translateX(60px) scale(1);
+    }
+    75% {
+      transform: rotate(270deg) translateX(60px) scale(0.6);
+    }
+    100% {
+      transform: rotate(360deg) translateX(60px) scale(1);
+    }
   }
 }
 </style>

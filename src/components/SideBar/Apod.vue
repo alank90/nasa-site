@@ -1,9 +1,9 @@
 <template>
   <div class="apod" v-cloak>
-    <div v-if="loading">
+    <div class="loading" v-if="loading">
       Loading...
       <!--Loading spinner -->
-      <i class="fas fa-spinner spin-it" aria-hidden="true"></i>
+      <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
     </div>
 
     <b-jumbotron v-bind:header="title">
@@ -95,6 +95,11 @@ p {
   color: #000;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.loading {
+  color: white;
+  font-weight: 600;
 }
 </style>
 

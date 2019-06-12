@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <b-img :src="MainViewNeptune" fluid alt="Neptune Image"></b-img>
     <b-img :src="MainViewSaturn" fluid alt="Saturn Image"></b-img>
     <b-img :src="MainViewJupiter" fluid alt="Jupiter Image"></b-img>
   </div>
@@ -10,7 +11,8 @@ export default {
   name: "MainView",
   data() {
     return {
-      MainViewSaturn: require("../assets/saturn.gif"),
+      MainViewNeptune: require("../assets/neptune.png"),
+      MainViewSaturn: require("../assets/saturn.png"),
       MainViewJupiter: require("../assets/jupiter1.gif")
     };
   }
@@ -28,10 +30,47 @@ export default {
   height: auto;
 }
 
+img[alt="Jupiter Image"] {
+  transition: all 0.5s linear;
+}
+
 img[alt="Saturn Image"] {
-  position:absolute;
-  top: -100px;
-  max-width: 30%;
+  position: absolute;
+  top: -120%;
+  right: -25%;
+  max-width: 60%;
+  transition: all 0.5s linear;
+}
+
+img[alt="Neptune Image"] {
+  position: absolute;
+  top: -80%;
+  right: 80%;
+  max-width: 10%;
+  z-index: -99;
+  transition: all 0.5s linear;
+}
+
+@media screen and (max-width: 600px) {
+  img[alt="Saturn Image"] {
+    top: -175%;
+  }
+
+  @media screen and (max-width: 600px) {
+    img[alt="Neptune Image"] {
+      top: -170%;
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  img[alt="Saturn Image"] {
+    top: -105%;
+  }
+
+  img[alt="Neptune Image"] {
+    top: -45%;
+  }
 }
 </style>
 
