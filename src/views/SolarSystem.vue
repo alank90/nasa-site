@@ -181,7 +181,7 @@ export default {
 
 <style scoped>
 /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, 300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
 /*
         Copyright (c) 2012 Julian Garnier
         Licensed under the MIT license
