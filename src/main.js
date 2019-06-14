@@ -9,6 +9,7 @@ import Carousel3d from "vue-carousel-3d";
 import App from "./App.vue";
 import router from "./router";
 
+
 // By defining the EventBus globally you avoid having to import the
 // EventBus in every component you would like to use it in.
 Vue.prototype.$eventBus = new Vue();

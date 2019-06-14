@@ -168,27 +168,20 @@
   </div>
 </template>
 
-<!--//  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-
- <script type="text/javascript">
-if (typeof jQuery == "undefined") {
-  document.write(
-    unescape(
-      "%3Cscript src='js/jquery.min.js' type='text/javascript'%3E%3C/script%3E"
-    )
-  );
-}
-</script> 
-
-<script src="../assets/solarSystem.js"></script> -->
+<script>
+export default {
+  mounted() {
+    let planetAnimation = document.createElement("script");
+    planetAnimation.setAttribute("src", "/src/assets/js/planetAnimation.js");
+    document.head.appendChild(planetAnimation);
+  }
+};
+</script>
 
 
 <style scoped>
 /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400, 300);
 /*
         Copyright (c) 2012 Julian Garnier
         Licensed under the MIT license
