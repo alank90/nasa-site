@@ -1,4 +1,4 @@
-export default $(window).load(function() {
+export default function() {
   var body = $("body"),
     universe = $("#universe"),
     solarsys = $("#solar-system");
@@ -58,4 +58,5 @@ export default $(window).load(function() {
   });
 
   init();
-});
+}
+

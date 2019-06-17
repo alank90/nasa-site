@@ -1,5 +1,5 @@
 <template>
-  <div class="solarSystem">
+  <div class="solarSystem" @load="solarSystemAnimations">
     <div class="opening hide-UI view-2D zoom-large data-close controls-close">
       <div id="navbar">
         <a id="toggle-data" href="#data">
@@ -169,14 +169,17 @@
 </template>
 
 <script>
+import solarSystemAnimations from "@/assets/js/solarSystemAnimations.js";
+console.log(solarSystemAnimations);
+
 export default {
-  mounted() {
-    let planetAnimation = document.createElement("script");
-    planetAnimation.setAttribute("src", "/src/assets/js/planetAnimation.js");
-    document.head.appendChild(planetAnimation);
+  name: "SolarSystem",
+  methods: {
+    solarSystemAnimations: solarSystemAnimations
   }
 };
 </script>
+
 
 
 <style scoped>
