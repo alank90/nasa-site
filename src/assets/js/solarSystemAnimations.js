@@ -1,7 +1,14 @@
 export default function() {
+  console.log("hello world");
+}
+
+/* export default function() {
   var body = $("body"),
     universe = $("#universe"),
     solarsys = $("#solar-system");
+
+  console.log("Im in ssa.js");
+  console.log(solarsys);
 
   var init = function() {
     body
@@ -59,4 +66,4 @@ export default function() {
 
   init();
 }
-
+ */

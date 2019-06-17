@@ -1,5 +1,5 @@
 <template>
-  <div class="solarSystem" @load="solarSystemAnimations">
+  <div class="solarSystem">
     <div class="opening hide-UI view-2D zoom-large data-close controls-close">
       <div id="navbar">
         <a id="toggle-data" href="#data">
@@ -175,7 +175,10 @@ console.log(solarSystemAnimations);
 export default {
   name: "SolarSystem",
   methods: {
-    solarSystemAnimations: solarSystemAnimations
+    solarSystemAnimations
+  },
+  mounted() {
+    this.solarSystemAnimations();
   }
 };
 </script>
