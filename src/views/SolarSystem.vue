@@ -1,5 +1,5 @@
 <template>
-  <div class="solarSystem">
+  <div id="mainBody" class="opening hide-UI view-2D zoom-large data-close controls-close">
     <div class="opening hide-UI view-2D zoom-large data-close controls-close">
       <div id="navbar">
         <a id="toggle-data" href="#data">
@@ -165,7 +165,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> <!-- End .solarSystem -->
 </template>
 
 <script>
