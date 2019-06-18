@@ -26,14 +26,19 @@ export default function() {
       e.preventDefault();
     });
 
-    /* $("#toggle-controls").click(function(e) {
+    $("#toggle-controls").click(function(e) {
       mainBody.toggleClass("controls-open controls-close");
       e.preventDefault();
     });
 
     $("#data a").click(function(e) {
-      let ref = $(this).attr("class");
+      let ref = $(this).attr("class"); // Get planet name from its class in markup
+
+      // Remove old class from #solar-system and add the new clicked
+      // planet stored in ref variable
       solarsys.removeClass().addClass(ref);
+
+      // Move .active to selected element
       $(this)
         .parent()
         .find("a")
@@ -56,9 +61,8 @@ export default function() {
     });
     $(".set-distance").click(function() {
       setView("scale-d set-distance");
-    }); */
+    });
 
-    init();
+    init(); // Call the init() function on page load
   }); // End document.ready()
 }
-
