@@ -4,14 +4,7 @@
       <a id="toggle-data" href="#data">
         <i class="icon-data"></i>Data
       </a>
-      <h1>
-        3D Solar System
-        <br>
-        <span>
-          by
-          <a href="https://twitter.com/JulianGarnier" target="_blank">@JulianGarnier</a>
-        </span>
-      </h1>
+
       <a id="toggle-controls" href="#controls">
         <i class="icon-controls"></i>Controls
       </a>
@@ -169,7 +162,6 @@
 
 <script>
 import solarSystemAnimations from "@/assets/js/solarSystemAnimations.js";
-console.log(solarSystemAnimations);
 
 export default {
   name: "SolarSystem",
@@ -1857,8 +1849,8 @@ h1 span,
   content: "";
   display: block;
   position: absolute;
-  width: 100px;
-  height: 22px;
+  width: 105px;
+  height: 25px;
   border: 2px solid #fff;
   border-radius: 16px;
 }

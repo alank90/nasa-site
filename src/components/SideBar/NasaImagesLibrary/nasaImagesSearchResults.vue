@@ -133,6 +133,53 @@ h1 {
   justify-content: flex-start;
 }
 
+h3, .h3 {
+  font-size: 2.2rem;
+}
+
+p.mt-3 {
+  color: whitesmoke;
+}
+
+.search-results {
+  list-style: none;
+  font-size: 18px;
+  font-weight: 700;
+}
+.results h3 {
+  color: whitesmoke;
+  font-weight: 600;
+  height: 50px;
+}
+
+.list-group-item {
+  background-color: rgba(47, 123, 223, 0.2);
+  border: none;
+  margin-bottom: 5px;
+  line-height: 1.33;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 1.3rem;
+}
+.list-group-item:hover {
+  text-decoration: underline;
+}
+.list-group-item:visited {
+  color: #660099;
+}
+
+img.thumbnail {
+  max-width: 8vw;
+  max-height: 8vh;
+  vertical-align: text-bottom;
+  margin-left: 20px;
+}
+
+ul.pagination {
+  justify-content: center;
+}
+
 /* ======== Modal Stylings ============ */
 
 .modal-image {
@@ -178,37 +225,5 @@ h1 {
 }
 
 /* ======== End of Modal Stylings =========== */
-
-.search-results {
-  list-style: none;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.list-group-item {
-  border: none;
-  margin-bottom: 5px;
-  line-height: 1.33;
-  color: #1a0dab;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-.list-group-item:hover {
-  text-decoration: underline;
-}
-.list-group-item:visited {
-  color: #660099;
-}
-
-img.thumbnail {
-  max-width: 8vw;
-  max-height: 8vh;
-  vertical-align: text-bottom;
-  margin-left: 20px;
-}
-
-ul.pagination {
-  justify-content: center;
-}
 </style>
 

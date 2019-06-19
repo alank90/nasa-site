@@ -62,16 +62,16 @@ export default {
   }
 
   25% {
-    transform: rotate(90deg) translateX(120px) scale(1.4);
+    transform: rotate(90deg) translateX(120px) scale(1.2);
   }
   50% {
-    transform: rotate(180deg) translateX(120px) scale(1);
+    transform: rotate(180deg) translateX(120px) scale(.8);
   }
   75% {
-    transform: rotate(270deg) translateX(120px) scale(0.6);
+    transform: rotate(270deg) translateX(120px) scale(0.4);
   }
   100% {
-    transform: rotate(360deg) translateX(120px) scale(1);
+    transform: rotate(360deg) translateX(120px) scale(.8);
   }
 }
 

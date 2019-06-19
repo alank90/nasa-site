@@ -23,14 +23,12 @@ export default {
 <style scoped>
 .container {
   position: relative;
-}
-
-.img-fluid {
-  max-width: 65%;
-  height: auto;
+  width: auto;
 }
 
 img[alt="Jupiter Image"] {
+  max-width: 65%;
+  bottom: 0;
   transition: all 0.5s linear;
 }
 
@@ -46,7 +44,7 @@ img[alt="Neptune Image"] {
   position: absolute;
   top: -80%;
   right: 80%;
-  max-width: 10%;
+  max-width: 15%;
   z-index: -99;
   transition: all 0.5s linear;
 }

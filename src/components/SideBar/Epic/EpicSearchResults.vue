@@ -155,7 +155,7 @@ h3 {
   color: #fff;
   cursor: pointer;
   width: 10vw;
-  margin: -5px auto 10px;
+  margin: -5px auto 25px;
   transform: scale(3);
   transition: all 300ms;
 }
@@ -166,6 +166,7 @@ h3 {
 
 .carousel-title {
   color: #fff;
+  font-size: 1.1rem;
   margin-top: -10px;
   height: 10vh;
   transition: all 300ms;

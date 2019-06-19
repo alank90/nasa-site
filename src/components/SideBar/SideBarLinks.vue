@@ -296,6 +296,8 @@ export default {
 <style scoped>
 .list-group-item,
 .list-group-item-action {
+  font-size: 1.3rem;
+  max-width: 400px;
   border-radius: 5px;
   background-color: rgba(68, 124, 167, 0.8);
   color: skyblue;
