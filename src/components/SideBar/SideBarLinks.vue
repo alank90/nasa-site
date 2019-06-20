@@ -1,7 +1,7 @@
-/*    /src/components/SideBarLinks.vue 
+<!--    /src/components/SideBarLinks.vue 
  Note: The sendData Methods are used to emit an event on click
  that is wired up to a listener in the Home view which will display
- correct picture in MainView depending on currentView state */
+ correct picture in MainView depending on currentView state-->
 
 <template>
   <div>
@@ -296,9 +296,8 @@ export default {
 <style scoped>
 .list-group-item,
 .list-group-item-action {
-  font-size: 1.3rem;
-  max-width: 400px;
-  border-radius: 5px;
+  font-size: 1.5rem;
+  border-radius: 17px;
   background-color: rgba(68, 124, 167, 0.8);
   color: skyblue;
   text-align: center;
@@ -309,11 +308,17 @@ export default {
 .list-group-item:hover {
   background-color: rgba(68, 124, 167, 0.6);
   cursor: pointer;
-  /* color: #fff; */
+}
+
+.mt-2,
+.mt-3 {
+  border-radius: 50px;
+  margin-bottom: 2px;
 }
 
 .img-fluid {
-  max-width: 70%;
+  width: 60%;
+  max-width: 300px;
   height: auto;
 }
 

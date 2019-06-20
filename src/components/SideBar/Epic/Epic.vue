@@ -109,12 +109,14 @@ input[name="date2"] {
   margin: 5px 5px;
 }
 
-#input-group-1 {
+#input-group-1, #input-group-2 {
   margin-top: 5px;
+  font-size: 1.3rem;
+ 
 }
 
 .epicForm {
-  border-radius: 5px;
+  border-radius: 7px;
   background-color: rgba(68, 124, 167, 0.8);
   color: skyblue;
   text-align: center;

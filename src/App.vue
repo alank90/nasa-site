@@ -16,6 +16,7 @@
 <style>
 body {
   background: url("~@/assets/background.png") repeat 5% 5%;
+  max-width: 1900px;
 }
 
 #midground {

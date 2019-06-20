@@ -62,3 +62,8 @@ export default {
 };
 </script>
 
+<style>
+.col-3 {
+  max-width: 400px;
+}
+</style>

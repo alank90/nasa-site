@@ -28,14 +28,13 @@ export default {
 
 img[alt="Jupiter Image"] {
   max-width: 65%;
-  bottom: 0;
   transition: all 0.5s linear;
 }
 
 img[alt="Saturn Image"] {
   position: absolute;
-  top: -120%;
-  right: -25%;
+  top: -45%;
+  left: 60%;
   max-width: 60%;
   transition: all 0.5s linear;
 }
@@ -49,23 +48,21 @@ img[alt="Neptune Image"] {
   transition: all 0.5s linear;
 }
 
+/* ========== Media Queries =============== */
+
 @media screen and (max-width: 600px) {
   img[alt="Saturn Image"] {
-    top: -175%;
+    top: -400%;
+    left: 95%;
+    z-index: -99;
   }
 
-  @media screen and (max-width: 600px) {
-    img[alt="Neptune Image"] {
-      top: -170%;
-    }
+  img[alt="Neptune Image"] {
+    top: -450%;
   }
 }
 
 @media screen and (min-width: 900px) {
-  img[alt="Saturn Image"] {
-    top: -105%;
-  }
-
   img[alt="Neptune Image"] {
     top: -45%;
   }
