@@ -40,10 +40,11 @@
 
     <!-- =============== End ImageModal markup ======================== -->
 
+    <!-- ============================================================== -->
     <!-- ====== NASA Images Library Search Results Output List  ======= -->
+    <!-- ============================================================== -->
 
     <!-- Limit output to 100 items -->
-
     <b-list-group
       class="search-results"
       id="my-list"
@@ -53,8 +54,9 @@
       <b-list-group-item v-if="propsResults.items.length === 0  || propsResults === undefined">
         <p>No Search Results</p>
       </b-list-group-item>
+
       <b-list-group-item
-        v-else
+        v-else-if="propsResults.href.includes('media_type=image')"
         v-for="(item, index) in propsResults.items.slice(10*(currentPage-1),10*(currentPage))"
         :key="index"
       >
@@ -71,8 +73,21 @@
           ></b-img>
         </span>
       </b-list-group-item>
+
+      <b-list-group-item
+        v-else-if="propsResults.href.includes('media_type=audio')"
+        v-for="(item, index) in propsResults.items"
+        :key="index"
+      >
+        <ul class="audio-links">
+          <li @click="audioLinks(item.href)">{{ item.data[0].title }}</li>
+          <li>{{ item.href }}</li>
+        </ul>
+      </b-list-group-item>
     </b-list-group>
-    <!-- =================== End Search Results Output List  ======================== -->
+    <!-- ============================================================== -->
+    <!-- ================ End Search Results Output List  ============= -->
+    <!-- ============================================================== -->
 
     <!-- ======== Pagination Markup  ============ -->
 
@@ -91,6 +106,7 @@
 
 <script>
 import modal from "@/components/SideBar/NasaImagesLibrary/ImageModal.vue";
+import audioLinks from "@/assets/js/retrieveAudioLinks.js";
 
 export default {
   name: "nasaImagesSearchResults",
@@ -101,7 +117,8 @@ export default {
       attribute: "",
       resultsIndex: null,
       perPage: 15,
-      currentPage: 1
+      currentPage: 1,
+      audioLink: ""
     };
   },
   computed: {
@@ -117,7 +134,8 @@ export default {
       this.attribute = event.target.getAttribute("src");
       this.resultsIndex = event.target.getAttribute("data-index");
       this.showModal = true;
-    }
+    },
+    audioLinks
   }
 };
 </script>
@@ -133,7 +151,8 @@ h1 {
   justify-content: flex-start;
 }
 
-h3, .h3 {
+h3,
+.h3 {
   font-size: 2.2rem;
 }
 
@@ -176,8 +195,16 @@ img.thumbnail {
   margin-left: 20px;
 }
 
+ul {
+  list-style-type: none;
+}
+
 ul.pagination {
   justify-content: center;
+}
+
+.audio-links {
+  cursor: pointer;
 }
 
 /* ======== Modal Stylings ============ */
