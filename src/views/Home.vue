@@ -3,10 +3,10 @@
     <appTitle></appTitle>
     <b-container class="bv-example-row bv-example-row-flex-cols" fluid>
       <b-row align-h="start">
-        <b-col cols="3">
+        <b-col md="3">
           <SideBarLinks/>
         </b-col>
-        <b-col cols="9">
+        <b-col md="9">
           <!-- propsResults used on nasaImagesSearchResults component to render search results  -->
           <!-- propsSelectState used with EpicSearchResults component to pass along the select Color Image state  -->
           <component :propsResults="nasaData" :is="currentView" :propsSelectState="formSelectState"></component>

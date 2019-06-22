@@ -296,7 +296,7 @@ export default {
 <style scoped>
 .list-group-item,
 .list-group-item-action {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   border-radius: 17px;
   background-color: rgba(68, 124, 167, 0.8);
   color: skyblue;
@@ -391,9 +391,20 @@ p.error {
 /* ============== End Vuelidate Error Stylings ============ */
 
 /* Media Queries */
-@media screen and (max-width: 850px) {
-  .list-group-item {
-    font-size: 2vw;
+
+@media screen and (max-width: 600px) {
+  .list-group-item,
+  .list-group-item-action {
+    font-size: 0.7rem;
+    width: 60vw;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 850px) {
+  .list-group-item,
+  .list-group-item-action {
+    font-size: 1rem;
   }
 }
 </style>
