@@ -45,6 +45,8 @@
     <!-- ============================================================== -->
 
     <!-- Limit output to 100 items -->
+
+    <!-- =============== Markup for an Image =============-->
     <b-list-group
       class="search-results"
       id="my-list"
@@ -73,18 +75,24 @@
           ></b-img>
         </span>
       </b-list-group-item>
+      <!-- ========== End Image Link Markup ================ -->
 
+      <!-- ========= Begin Markup for Audio Links ============== -->
       <b-list-group-item
         v-else-if="propsResults.href.includes('media_type=audio')"
         v-for="(item, index) in propsResults.items"
         :key="index"
       >
         <ul class="audio-links">
-          <li @click="audioLinks(item.href)">{{ item.data[0].title }}</li>
-          <li>{{ item.href }}</li>
+          <li @click="audioFileSubmitHandler($event, item.href)">{{ item.data[0].title }}</li>
+          <li v-if="audioUrl">
+            <audio controls :src="audioUrl"></audio>
+          </li>
         </ul>
       </b-list-group-item>
     </b-list-group>
+    <!-- ========= End Audio Link Markup ================= -->
+
     <!-- ============================================================== -->
     <!-- ================ End Search Results Output List  ============= -->
     <!-- ============================================================== -->
@@ -106,7 +114,7 @@
 
 <script>
 import modal from "@/components/SideBar/NasaImagesLibrary/ImageModal.vue";
-import audioLinks from "@/assets/js/retrieveAudioLinks.js";
+import retrieveMp3AudioLink from "@/assets/js/retrieveMp3AudioLink.js";
 
 export default {
   name: "nasaImagesSearchResults",
@@ -118,7 +126,7 @@ export default {
       resultsIndex: null,
       perPage: 15,
       currentPage: 1,
-      audioLink: ""
+      audioUrl: ""
     };
   },
   computed: {
@@ -135,7 +143,13 @@ export default {
       this.resultsIndex = event.target.getAttribute("data-index");
       this.showModal = true;
     },
-    audioLinks
+    retrieveMp3AudioLink,
+    audioFileSubmitHandler: async function(e, audioFilesJSON) {
+      if (e.target.textContent === e.target.innerHTML)
+        this.audioUrl = await this.retrieveMp3AudioLink(audioFilesJSON);
+      console.log(e.target.textContent);
+      console.log(e.target);
+    }
   }
 };
 </script>
