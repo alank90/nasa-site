@@ -44,9 +44,7 @@
     <!-- ====== NASA Images Library Search Results Output List  ======= -->
     <!-- ============================================================== -->
 
-    <!-- Limit output to 100 items -->
-
-    <!-- =============== Markup for an Image =============-->
+    <!-- =============== Markup for an Image Link =============-->
     <b-list-group
       class="search-results"
       id="my-list"
@@ -78,18 +76,23 @@
       <!-- ========== End Image Link Markup ================ -->
 
       <!-- ========= Begin Markup for Audio Links ============== -->
-      <b-list-group-item
+      <ul
+        class="search-results"
         v-else-if="propsResults.href.includes('media_type=audio')"
-        v-for="(item, index) in propsResults.items"
-        :key="index"
+        @click.prevent="audioFileSubmitHandler($event)"
+        :per-page="perPage"
+        :current-page="currentPage"
       >
-        <ul class="audio-links">
-          <li @click="audioFileSubmitHandler($event, item.href)">{{ item.data[0].title }}</li>
-          <li v-if="audioUrl">
+        <b-list-group-item
+          v-for="(item, index) in propsResults.items.slice(10*(currentPage-1),10*(currentPage))"
+          :key="index"
+        >
+          <li :data-json-url="item.href" class="audio-link">{{ item.data[0].title }}</li>
+          <li v-if="item.href === audioFilesJSONLink ">
             <audio controls :src="audioUrl"></audio>
           </li>
-        </ul>
-      </b-list-group-item>
+        </b-list-group-item>
+      </ul>
     </b-list-group>
     <!-- ========= End Audio Link Markup ================= -->
 
@@ -126,6 +129,7 @@ export default {
       resultsIndex: null,
       perPage: 15,
       currentPage: 1,
+      audioFilesJSONLink: "",
       audioUrl: ""
     };
   },
@@ -144,11 +148,12 @@ export default {
       this.showModal = true;
     },
     retrieveMp3AudioLink,
-    audioFileSubmitHandler: async function(e, audioFilesJSON) {
-      if (e.target.textContent === e.target.innerHTML)
-        this.audioUrl = await this.retrieveMp3AudioLink(audioFilesJSON);
-      console.log(e.target.textContent);
-      console.log(e.target);
+    audioFileSubmitHandler: async function(event) {
+      console.log(event.target);
+      const el = event.target;
+      const audioFilesJSON = el.getAttribute("data-json-url");
+      this.audioFilesJSONLink = audioFilesJSON;
+      this.audioUrl = await this.retrieveMp3AudioLink(audioFilesJSON);
     }
   }
 };
@@ -217,7 +222,7 @@ ul.pagination {
   justify-content: center;
 }
 
-.audio-links {
+.audio-link {
   cursor: pointer;
 }
 
@@ -262,7 +267,8 @@ ul.pagination {
   transition: all 0.3s ease-in-out;
 }
 #show-modal:hover {
-  transform: scale(2);
+  transform: scale(2.5);
+  z-index: 99;
 }
 
 /* ======== End of Modal Stylings =========== */
