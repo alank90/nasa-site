@@ -6,8 +6,7 @@
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Pick a Date For Pictures" label-for="input-2">
-        <!--  ref attribute allows us access to component datepicker's data object -->
-        <datepicker else ref="datePicked" :value="getToday" format="YYYY-M-D" name="date2"></datepicker>
+        <b-form-input else id="datePicked" :value="getToday" type="date" format="yyyymmdd" name="date2"></b-form-input>
       </b-form-group>
 
       <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
@@ -16,11 +15,7 @@
 </template>
 
 <script>
-import datepicker from "vue-date-picker";
 export default {
-  components: {
-    datepicker
-  },
   data() {
     return {
       epicForm: {
@@ -53,11 +48,12 @@ export default {
   },
   methods: {
     onSubmit(event) {
-      let datePicked = this.$refs.datePicked.pickedValue;
+      let datePicked = document.getElementById("datePicked").value;
+      console.log(datePicked);
+      // date needs format https://epic.gsfc.nasa.gov/api/natural/date/YYYYMMDD
       datePicked = this.convertDate(datePicked);
       this.noApiResults = false;
 
-      // date needs format https://epic.gsfc.nasa.gov/api/natural/date/YYYYMMDD
       let url = `https://epic.gsfc.nasa.gov/api/${
         this.epicForm.selected
       }/date/${datePicked}`;
@@ -97,9 +93,13 @@ export default {
 </script>
 
 <style>
+select#input-1 {
+  max-width: 60%;
+  margin: 0 auto;
+}
 input[name="date2"] {
-  max-width: 70%;
-  margin-left: -30px;
+  max-width: 60%;
+  margin: 0 auto;
 }
 </style>
 
@@ -109,10 +109,10 @@ input[name="date2"] {
   margin: 5px 5px;
 }
 
-#input-group-1, #input-group-2 {
+#input-group-1,
+#input-group-2 {
   margin-top: 5px;
   font-size: 1.3rem;
- 
 }
 
 .epicForm {
