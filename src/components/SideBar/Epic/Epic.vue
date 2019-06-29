@@ -6,7 +6,14 @@
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Pick a Date For Pictures" label-for="input-2">
-        <b-form-input else id="datePicked" :value="getToday" type="date" format="yyyymmdd" name="date2"></b-form-input>
+        <b-form-input
+          else
+          id="datePicked"
+          :value="getToday"
+          type="date"
+          format="yyyymmdd"
+          name="date2"
+        ></b-form-input>
       </b-form-group>
 
       <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
@@ -97,6 +104,7 @@ select#input-1 {
   max-width: 60%;
   margin: 0 auto;
 }
+
 input[name="date2"] {
   max-width: 60%;
   margin: 0 auto;
@@ -116,7 +124,9 @@ input[name="date2"] {
 }
 
 .epicForm {
+  width: 85%;
   border-radius: 7px;
+  margin: 0 auto;
   background-color: rgba(68, 124, 167, 0.8);
   color: skyblue;
   text-align: center;

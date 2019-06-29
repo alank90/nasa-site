@@ -170,6 +170,8 @@ h3 {
   margin-top: -10px;
   height: 10vh;
   transition: all 300ms;
+  scrollbar-width: none;
+  overflow: auto;
 }
 
 .play-button {

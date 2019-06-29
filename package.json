@@ -8,14 +8,14 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.18",
+    "bootstrap-vue": "^2.0.0-rc.24",
     "vue": "^2.6.6",
     "vue-carousel-3d": "^0.2.0",
-    "vue-router": "^3.0.1",
+    "vue-router": "^3.0.6",
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {
-    "@vue/cli-service": "^3.5.0",
+    "@vue/cli-service": "^3.8.4",
     "vue-template-compiler": "^2.5.21"
   }
 }

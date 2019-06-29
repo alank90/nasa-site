@@ -63,6 +63,8 @@ export default {
   margin-top: 0;
   color: #010e08;
   height: 10vh;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .modal-body {

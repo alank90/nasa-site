@@ -240,6 +240,8 @@ ul.pagination {
 
 .modal-description {
   font-size: 0.75rem;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .modal-center {

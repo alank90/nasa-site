@@ -297,6 +297,8 @@ export default {
 .list-group-item,
 .list-group-item-action {
   font-size: 1.2rem;
+  width:85%;
+  margin: 0 auto;
   border-radius: 17px;
   background-color: rgba(68, 124, 167, 0.8);
   color: skyblue;
@@ -317,8 +319,8 @@ export default {
 }
 
 .img-fluid {
-  width: 60%;
-  max-width: 300px;
+  width: 50%;
+  max-width: 200px;
   height: auto;
 }
 
