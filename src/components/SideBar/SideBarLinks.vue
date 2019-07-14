@@ -61,6 +61,7 @@
                 v-model.lazy="$v.formResponses.media_type.$model"
               >
                 <option :value="null">Please select an option</option>
+                <option value="video">Video</option>
                 <option value="image">Image</option>
                 <option value="audio">Audio</option>
               </b-form-select>
@@ -144,7 +145,7 @@
 
       <b-list-group-item v-b-toggle="'collapse-3'" class="mt-2">EPIC</b-list-group-item>
       <b-collapse id="collapse-3">
-        <Epic/>
+        <Epic />
       </b-collapse>
 
       <!-- ==================================================================== -->
@@ -297,7 +298,7 @@ export default {
 .list-group-item,
 .list-group-item-action {
   font-size: 1.2rem;
-  width:85%;
+  width: 85%;
   margin: 0 auto;
   border-radius: 17px;
   background-color: rgba(68, 124, 167, 0.8);
