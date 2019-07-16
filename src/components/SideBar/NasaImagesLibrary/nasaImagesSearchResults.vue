@@ -44,7 +44,35 @@
     <!-- ====== NASA Images Library Search Results Output List  ======= -->
     <!-- ============================================================== -->
 
-    <!-- =============== Markup for an Image Link =============-->
+    <!-- ========== Begin Markup for Video Links =================== -->
+    <ul
+      class="search-results"
+      v-else-if="propsResults.href.includes('media_type=video')"
+      @click.prevent="videoFileSubmitHandler($event)"
+      :per-page="perPage"
+      :current-page="currentPage"
+    >
+      <b-list-group-item
+        v-for="(item, index) in propsResults.items.slice(10*(currentPage-1),10*(currentPage))"
+        :key="index"
+      >
+        <li
+          v-b-toggle.collapse-1
+          :data-json-url="item.href"
+          class="media-link"
+        >{{ item.data[0].title }}</li>
+        <b-collapse id="collapse-1" class="mt-2">
+          <li v-if="item.href === videoFilesJSONLink ">
+            <video width="800" height="600" controls :src="videoUrl"></video>
+            <p class="description">{{ item.data[0].description }}</p>
+          </li>
+        </b-collapse>
+      </b-list-group-item>
+    </ul>
+
+    <!-- ========== End  Markup for Video Links ==================== -->
+
+    <!-- =============== Begin Markup for an Image Link =============-->
     <b-list-group
       class="search-results"
       id="my-list"
@@ -87,10 +115,17 @@
           v-for="(item, index) in propsResults.items.slice(10*(currentPage-1),10*(currentPage))"
           :key="index"
         >
-          <li :data-json-url="item.href" class="audio-link">{{ item.data[0].title }}</li>
-          <li v-if="item.href === audioFilesJSONLink ">
-            <audio controls :src="audioUrl"></audio>
-          </li>
+          <li
+            v-b-toggle.collapse-1
+            :data-json-url="item.href"
+            class="media-link"
+          >{{ item.data[0].title }}</li>
+          <b-collapse id="collapse-1" class="mt-2">
+            <li v-if="item.href === audioFilesJSONLink ">
+              <audio controls :src="audioUrl"></audio>
+              <p class="description">{{ item.data[0].description }}</p>
+            </li>
+          </b-collapse>
         </b-list-group-item>
       </ul>
     </b-list-group>
@@ -117,7 +152,7 @@
 
 <script>
 import modal from "@/components/SideBar/NasaImagesLibrary/ImageModal.vue";
-import retrieveMp3AudioLink from "@/assets/js/retrieveMp3AudioLink.js";
+import retrieveMediaLink from "@/assets/js/retrieveMediaLink.js";
 
 export default {
   name: "nasaImagesSearchResults",
@@ -129,6 +164,8 @@ export default {
       resultsIndex: null,
       perPage: 15,
       currentPage: 1,
+      videoFilesJSONLink: "",
+      videoUrl: "",
       audioFilesJSONLink: "",
       audioUrl: ""
     };
@@ -147,13 +184,18 @@ export default {
       this.resultsIndex = event.target.getAttribute("data-index");
       this.showModal = true;
     },
-    retrieveMp3AudioLink,
+    retrieveMediaLink,
+    videoFileSubmitHandler: async function(event) {
+      const el = event.target;
+      const videoFilesJSON = el.getAttribute("data-json-url");
+      this.videoFilesJSONLink = videoFilesJSON;
+      this.videoUrl = await this.retrieveMediaLink(videoFilesJSON);
+    },
     audioFileSubmitHandler: async function(event) {
-      console.log(event.target);
       const el = event.target;
       const audioFilesJSON = el.getAttribute("data-json-url");
       this.audioFilesJSONLink = audioFilesJSON;
-      this.audioUrl = await this.retrieveMp3AudioLink(audioFilesJSON);
+      this.audioUrl = await this.retrieveMediaLink(audioFilesJSON);
     }
   }
 };
@@ -200,9 +242,7 @@ p.mt-3 {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 1.3rem;
 }
-.list-group-item:hover {
-  text-decoration: underline;
-}
+
 .list-group-item:visited {
   color: #660099;
 }
@@ -218,12 +258,20 @@ ul {
   list-style-type: none;
 }
 
+li.media-link:hover {
+  text-decoration: underline;
+}
+
 ul.pagination {
   justify-content: center;
 }
 
-.audio-link {
+.media-link {
   cursor: pointer;
+}
+
+p.description {
+  font-size: 0.9rem;
 }
 
 /* ======== Modal Stylings ============ */
@@ -272,7 +320,6 @@ ul.pagination {
   transform: scale(2.5);
   z-index: 99;
 }
-
 /* ======== End of Modal Stylings =========== */
 </style>
 
