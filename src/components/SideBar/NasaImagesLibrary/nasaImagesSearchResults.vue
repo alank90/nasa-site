@@ -48,7 +48,7 @@
     <ul
       class="search-results"
       v-else-if="propsResults.href.includes('media_type=video')"
-      @click.prevent="videoFileSubmitHandler($event)"
+      @click.prevent="retrieveMediaSrcLinkHandler($event)"
       :per-page="perPage"
       :current-page="currentPage"
     >
@@ -62,8 +62,8 @@
           class="media-link"
         >{{ item.data[0].title }}</li>
         <b-collapse id="collapse-1" class="mt-2">
-          <li v-if="item.href === videoFilesJSONLink ">
-            <video width="800" height="600" controls :src="videoUrl"></video>
+          <li v-if="item.href === mediaFilesJSONLink ">
+            <video width="800" height="600" controls :src="mediaUrl"></video>
             <p class="description">{{ item.data[0].description }}</p>
           </li>
         </b-collapse>
@@ -107,7 +107,7 @@
       <ul
         class="search-results"
         v-else-if="propsResults.href.includes('media_type=audio')"
-        @click.prevent="audioFileSubmitHandler($event)"
+        @click.prevent="retrieveMediaSrcLinkHandler($event)"
         :per-page="perPage"
         :current-page="currentPage"
       >
@@ -121,8 +121,8 @@
             class="media-link"
           >{{ item.data[0].title }}</li>
           <b-collapse id="collapse-1" class="mt-2">
-            <li v-if="item.href === audioFilesJSONLink ">
-              <audio controls :src="audioUrl"></audio>
+            <li v-if="item.href === mediaFilesJSONLink ">
+              <audio controls :src="mediaUrl"></audio>
               <p class="description">{{ item.data[0].description }}</p>
             </li>
           </b-collapse>
@@ -164,10 +164,8 @@ export default {
       resultsIndex: null,
       perPage: 15,
       currentPage: 1,
-      videoFilesJSONLink: "",
-      videoUrl: "",
-      audioFilesJSONLink: "",
-      audioUrl: ""
+      mediaFilesJSONLink: "",
+      mediaUrl: ""
     };
   },
   computed: {
@@ -185,17 +183,16 @@ export default {
       this.showModal = true;
     },
     retrieveMediaLink,
-    videoFileSubmitHandler: async function(event) {
+    retrieveMediaSrcLinkHandler: async function(event) {
+      /* On click of Search Results <li> element we retrieve the 
+         value in data-json-url attribute and submit this to retrieveMediaLink
+         module to return the actual media file link fo an audio or video file
+         to be used in <video/audio>'s src= link
+      */
       const el = event.target;
-      const videoFilesJSON = el.getAttribute("data-json-url");
-      this.videoFilesJSONLink = videoFilesJSON;
-      this.videoUrl = await this.retrieveMediaLink(videoFilesJSON);
-    },
-    audioFileSubmitHandler: async function(event) {
-      const el = event.target;
-      const audioFilesJSON = el.getAttribute("data-json-url");
-      this.audioFilesJSONLink = audioFilesJSON;
-      this.audioUrl = await this.retrieveMediaLink(audioFilesJSON);
+      const mediaFilesJSON = el.getAttribute("data-json-url");
+      this.mediaFilesJSONLink = mediaFilesJSON;
+      this.mediaUrl = await this.retrieveMediaLink(mediaFilesJSON);
     }
   }
 };
