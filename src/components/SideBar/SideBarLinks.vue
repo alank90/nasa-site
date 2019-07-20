@@ -32,9 +32,10 @@
               and "dirty". The status() method assigns true or false values to error and 
               dirty objects determining presenece or absence of these classes.-->
               <b-form-input
-                :class="status($v.formResponses.q)"
+                :class="{ error: $v.formResponses.q.$error }"
+                @input="$v.formResponses.q.$touch()"
                 id="input-1"
-                v-model.lazy="$v.formResponses.q.$model"
+                v-model.lazy.trim="formResponses.q"
                 type="text"
                 placeholder="e.g. apollo 11 landing"
               ></b-form-input>
@@ -55,10 +56,10 @@
 
             <b-form-group id="input-group-2" label="*Media Type" label-for="input-2">
               <b-form-select
-                v-model="formResponses.media_type"
-                :class="status($v.formResponses.media_type)"
+                :class="{ error: $v.formResponses.media_type.$error }"
+                @input="$v.formResponses.media_type.$touch()"
                 id="input-2"
-                v-model.lazy="$v.formResponses.media_type.$model"
+                v-model.lazy.trim="formResponses.media_type"
               >
                 <option :value="null">Please select an option</option>
                 <option value="video">Video</option>
@@ -80,9 +81,10 @@
 
             <b-form-group id="input-group-3" label="Search Start Year" label-for="input-3">
               <b-form-input
-                :class="status($v.formResponses.year_start)"
+                :class="{ error: $v.formResponses.year_start.$error }"
+                @input="$v.formResponses.year_start.$touch()"
                 id="input-3"
-                v-model.lazy="$v.formResponses.year_start.$model"
+                v-model.lazy.trim="formResponses.year_start"
                 type="text"
                 placeholder="optional"
               ></b-form-input>
@@ -101,9 +103,10 @@
 
             <b-form-group id="input-group-4" label="Search End Year" label-for="input-4">
               <b-form-input
-                :class="status($v.formResponses.year_end)"
+                :class="{ error: $v.formResponses.year_end.$error }"
+                @input="$v.formResponses.year_end.$touch()"
                 id="input-4"
-                v-model.lazy="$v.formResponses.year_end.$model"
+                v-model.lazy.trim="formResponses.year_end"
                 type="text"
                 placeholder="optional"
               ></b-form-input>
@@ -337,6 +340,9 @@ input {
   border-radius: 4px;
   background: white;
   padding: 5px 10px;
+  width: 90%;
+  display: flex;
+  align-items: center;
 }
 
 input.dirty {
@@ -344,9 +350,16 @@ input.dirty {
   max-width: 70%;
 }
 
+select#input-2 {
+  width: 80%;
+  display: flex;
+  align-items: center;
+}
+
 span.checkmark {
   position: absolute;
   top: 10px;
+  left: 90%;
   color: green;
   font-size: 45px;
   margin-left: 10px;

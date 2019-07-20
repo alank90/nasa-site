@@ -8,9 +8,12 @@
       <b-form-group id="input-group-2" label="Pick a Date For Pictures" label-for="input-2">
         <b-form-input
           else
+          :class="{ error: $v.epicForm.selectedDate.$error }"
+          @input="$v.epicForm.selectedDate.$touch()"
           id="datePicked"
           :value="getToday"
           type="date"
+          v-model.lazy.trim="epicForm.selectedDate"
           format="yyyymmdd"
           name="date2"
         ></b-form-input>
@@ -22,12 +25,17 @@
         <div v-if="$v.epicForm.selectedDate.$error">
           <p
             class="error-message"
-            v-if="!$v.epicForm.selectedDate.between"
+            v-if="!$v.epicForm.selectedDate.checkDate"
           >EPIC Database Pictures between July 2015 thru Present</p>
         </div>
       </b-form-group>
 
-      <b-button @click.prevent="onSubmit" variant="primary">Submit</b-button>
+      <b-button
+        @click.prevent="onSubmit"
+        variant="primary"
+        :class="buttonState"
+        :disabled="$v.epicForm.$invalid"
+      >Submit</b-button>
     </b-form>
   </div>
 </template>
@@ -53,7 +61,13 @@ export default {
   validations: {
     epicForm: {
       selectedDate: {
-        between: between(2015, 2019)
+        checkDate() {
+          if (this.epicForm.selectedDate == "") {
+            return true;
+          } else {
+            return document.getElementById("datePicked").value > "2015-07-01";
+          }
+        }
       }
     }
   },
@@ -72,12 +86,20 @@ export default {
       today = `${yyyy}-${mm}-${dd}`;
 
       return today;
+    },
+    buttonState: function() {
+      // ==== Toggle Submit button disabled state ===== //
+      let theClass = "button-disabled";
+      if (!this.$v.epicForm.$invalid) {
+        theClass = "button-enabled";
+      }
+      return theClass;
     }
   },
   methods: {
     onSubmit(event) {
       let datePicked = document.getElementById("datePicked").value;
-      console.log(datePicked);
+
       // date needs format https://epic.gsfc.nasa.gov/api/natural/date/YYYYMMDD
       datePicked = this.convertDate(datePicked);
       this.noApiResults = false;
@@ -163,6 +185,13 @@ span.checkmark {
   color: green;
   font-size: 45px;
   margin-left: 10px;
+}
+
+.button-disabled {
+  cursor: not-allowed;
+}
+.button-enabled {
+  cursor: pointer;
 }
 
 /*  ================== Vuelidate Error Stylings ================ */

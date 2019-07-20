@@ -23,7 +23,8 @@
         href="https://solarsystem.nasa.gov/resources/754/what-is-a-lagrange-point/"
       >Earth-Sun Lagrange point</a>
       , EPIC provides full disc imagery of the Earth and captures unique perspectives
-      of certain astronomical events such as lunar transits.
+      of certain astronomical events such as lunar transits (For example retrieve the
+      one that occured on July 5, 2016).
     </p>
 
     <carousel-3d
@@ -40,7 +41,7 @@
       <slide v-for="(slide, index) in propsResults" :index="index" :key="index">
         <p class="image-title">Image {{ index + 1 }} of {{propsResults.length}}</p>
         <figure>
-          <img fluid-grow :src="urlMaker(slide.date,slide.image)">
+          <img fluid-grow :src="urlMaker(slide.date,slide.image)" />
           <figcaption>{{ slide.caption }}</figcaption>
         </figure>
       </slide>
@@ -95,9 +96,7 @@ export default {
         if (index === 2) this.day = item;
       });
 
-      const urlQuery = `https://epic.gsfc.nasa.gov/archive/${
-        this.propsSelectState
-      }/${this.year}/${this.month}/${this.day}/png/${image}.png`;
+      const urlQuery = `https://epic.gsfc.nasa.gov/archive/${this.propsSelectState}/${this.year}/${this.month}/${this.day}/png/${image}.png`;
 
       return urlQuery;
     },

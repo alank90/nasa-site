@@ -20,8 +20,14 @@ Vue.use(BootstrapVue);
 Vue.use(Vuelidate);
 Vue.use(Carousel3d);
 
+/* Adding the empty validations object to main Vue instance 
+   bootstraps Vuelidate’s $v throughout the project. This then allows
+   you to use the $v object to gain information about the current
+   state of your form within your Vue instance across all components.
+ */
 new Vue({
   router,
+  validations: {},
   render: function(h) {
     return h(App);
   }
