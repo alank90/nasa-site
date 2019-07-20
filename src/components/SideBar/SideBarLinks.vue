@@ -280,14 +280,16 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
-    }, // ======================= Vuelidate Logic Here ============================================ //
+    },
+    // ====== Vuelidate Logic Here ================ //
     status(validation, e) {
-      // Check if $v.formResponses.$form-name.$error || $dirty are true and return objects for class to show or not
+      // Check if $v.formResponses.$form-name.$error || $dirty
+      // are true and return objects for class to show or not
       return {
         error: validation.$error,
         dirty: validation.$dirty
       };
-    } // ==================== End of Vuelidate Logic ====================================== //
+    } // ==== End of Vuelidate Logic =============== //
   }
 };
 </script>
