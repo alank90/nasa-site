@@ -67,6 +67,26 @@ this.$refs.datePicked.pickedValue
 
 to access the <datepicker> instance. This may be useful when you want to, for example, programmatically focus this input from a parent. In that case, the <datepicker> component may similarly use a ref to provide access to specific elements inside it.
 
+## Web Deployment
+First make sure to install Surge on your machine
+
+` npm install surge -g`
+
+Then issue command to build App
+
+`npm run build `
+
+Then cd to /dist/myApp
+
+and deploy to surge.sh
+
+`$ surge`
+
+Can create a file in home directory called CNAME that will hold 
+your App name so dont have to enter it all the time when you redeploy the project.
+
+
+
 
 ### Links
 [Vue-Carousel-3d site](https://wlada.github.io/vue-carousel-3d/)
